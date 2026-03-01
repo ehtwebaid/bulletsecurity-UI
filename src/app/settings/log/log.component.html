@@ -1,0 +1,119 @@
+<h3 class="sub-title">Appointment Log</h3>
+<div class="basic-reporting">
+   <form method="post" [formGroup]="searchForm" (ngSubmit)="filterData()" *ngIf="searchForm">
+   <div class="row ">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>Customer</label>
+         <ng-select [items]="clients"
+               formControlName="customer_id"
+               placeholder="Type and Select Customer"
+               bindLabel="name"
+               bindValue="c_id" [multiple]="false"
+               (search)="allCustomers($event)"
+               (scrollToEnd)="resetOffset()"
+               [addTag]="false"
+               [loading]="loadItem"
+               loadingText="Loading..."
+               >
+               </ng-select>
+      </div>
+
+
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>Staff</label>
+         <ng-select [items]="staffs" formControlName="staff_id" placeholder="All" bindLabel="name"  bindValue="id" [multiple]="false">
+         </ng-select>
+      </div>
+      <div class="col-lg-1 col-md-2 col-sm-4 col-12">
+        <label>Code</label>
+        <input type="text" class="form-control" formControlName="code">
+     </div>
+     <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+      <label>Start Date</label>
+      <input  [owlDateTime]="dt1" class="form-control" formControlName="start_date" [owlDateTimeTrigger]="dt1"  placeholder="Start Date" >
+      <owl-date-time #dt1  [firstDayOfWeek]="1" [pickerType]="'calendar'" [pickerMode]="'dialog'"></owl-date-time>
+   </div>
+   <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+      <label>End Date</label>
+      <input    [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2" formControlName="end_date"  placeholder="End Date" >
+      <owl-date-time #dt2  [firstDayOfWeek]="1" [pickerType]="'calendar'" [pickerMode]="'dialog'" ></owl-date-time>
+   </div>
+   <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+    <label>Service</label>
+    <ng-select formControlName="customerservice_id"  [searchable]="true">
+      <ng-option value="">Select Service</ng-option>
+      <ng-option *ngFor="let service of cutomer_services"  [value]="service.id">
+       <span class='' style='background-color:{{service.color}};height:15px; width:15px;display:inline-block;margin:3px'></span><span style="vertical-align: top;">{{ service.name }}</span></ng-option>
+      </ng-select>
+   </div>
+
+      <div class="col-lg-1 col-md-2 p-0 col-sm-4 col-6">
+         <button class="btn btn-bookAppoin" type="submit">Search</button>
+      </div>
+
+   </div>
+   </form>
+   <div class="table-responsive" style="overflow-x:auto;">
+   <table class="table table-bordered table-hover basic-report-table" >
+      <thead>
+         <tr>
+            <th scope="col">Appointment ID</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Previous Value</th>
+            <th scope="col">Current Value</th>
+            <th scope="col">Last Action</th>
+            <th scope="col">Last Action by</th>
+            <th scope="col">Last Action Time</th>
+         </tr>
+      </thead>
+      <tbody *ngIf="logs?.length != 0">
+         <tr  *ngFor="let item of logs | paginate: { itemsPerPage: itemsPerPage, currentPage: p,totalItems:rowsTotal }">
+            <td >{{ item?.code }}</td>
+            <td >{{ item?.name ?? 'N/A' }}</td>
+            <td>
+              <ng-container *ngIf="(item?.before && item?.before.length>0 && item?.action!='Delete');else no_data">
+                <p *ngFor="let beforeData of item?.before">
+                  {{ beforeData?.label }}
+
+                  : <span *ngIf="(beforeData?.label=='Start Time' || beforeData?.label=='End Time')else normal_val">{{ beforeData?.value | date: 'dd-MM-yy h:mm a' }}</span>
+                  <ng-template #normal_val><span >{{ (beforeData?.value || 'N/A') | stripHtml }}</span></ng-template>
+                </p>
+              </ng-container>
+              <ng-template #no_data>---</ng-template>
+
+
+            </td>
+            <td>
+              <ng-container *ngIf="(item?.after && item?.after.length>0 && item?.action!='Delete');else no_data">
+                <p *ngFor="let afterData of item?.after">
+                  {{ afterData?.label }} :
+                  <span *ngIf="(afterData?.label=='Start Time' || afterData?.label=='End Time')else normal_val">{{ afterData?.value | date: 'dd-MM-yy h:mm a' }}</span>
+                  <ng-template #normal_val>
+
+                    <span > {{ (afterData?.value || 'N/A') | stripHtml }}</span>
+
+                  </ng-template>
+                </p>
+              </ng-container>
+              <ng-template #no_data>---</ng-template>
+            </td>
+            <td>{{item?.action}}</td>
+            <td>{{item?.staff?.name}}</td>
+            <td>
+              {{item.created_at | date: 'dd-MM-yy h:mm a'}}
+            </td>
+
+         </tr>
+      </tbody>
+      <tbody *ngIf="logs?.length == 0">
+         <tr >
+            <td colspan="8" style=" text-align: center">No Logs Found </td>
+         </tr>
+      </tbody>
+   </table>
+   <pagination-controls (pageChange)="getPage(p = $event)" [maxSize]="10"></pagination-controls>
+
+  </div>
+</div>
+
+

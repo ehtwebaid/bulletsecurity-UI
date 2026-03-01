@@ -1,0 +1,121 @@
+<div class="row m-0 mt-3">
+
+  <div class="col-lg-6 col-md-8 col-sm-12 col-12">
+      <form method="post" [formGroup]="staffForm"  *ngIf="staffForm">
+      <div class="cusetomet-name mb-2"><img src="assets/images/default-user.png" alt="#">  {{staffForm.value.name}} </div>
+      <div class="form-group mb-2">
+          <label>Name</label>
+          <input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'parsley-error':staffForm.get('name').invalid && IsSubmitted}">
+           <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('name').invalid && IsSubmitted">
+            <li class="parsley-required">Please Enter Name</li>
+           </ul>
+      </div>
+      <div class="form-group mb-2">
+          <label>Comments</label>
+          <textarea class="form-control" placeholder="Comments" formControlName="comments"></textarea>
+      </div>
+      <div class="form-group mb-2">
+          <label>Mobile</label>
+          <input type="text" class="form-control" placeholder="Mobile" appPhoneFormat  formControlName="phone_no" [ngClass]="{'parsley-error':staffForm.get('phone_no').invalid && IsSubmitted}" >
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('phone_no').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Mobile</li>
+
+         </ul>
+
+      </div>
+      <div class="form-group mb-2">
+          <label>Email</label>
+          <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'parsley-error':staffForm.get('email').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('email').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Email</li>
+           </ul>
+      </div>
+      <div class="form-group mb-2">
+          <label>Password</label>
+          <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'parsley-error':staffForm.get('password').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('password').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Password</li>
+           </ul>
+      </div>
+
+      <div class="form-group mb-2">
+        <label>Is Admin</label>
+
+        <div class="d-flex flex-wrap align-items-center">
+
+          <div class="col-sm-3 col-12">
+            <div class="onoffswitch">
+                <input type="checkbox" name="user_type" class="onoffswitch-checkbox" [checked]="staffForm.value.user_type=='admin'" id="user_type" value="1"  (change)="changeRole($event)">
+
+              <label class="onoffswitch-label" for="user_type">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-sm-9 col-12"></div>
+        </div>
+
+      </div>
+      <div class="form-group mb-2">
+        <label>Require Estimate</label>
+        <div class="d-flex flex-wrap align-items-center">
+
+          <div class="col-sm-3 col-12">
+            <div class="onoffswitch">
+                <input type="checkbox" name="require_estimate" class="onoffswitch-checkbox" id="myonoffswitch-estimate" [checked]="staffForm.value.require_estimate=='1'" formControlName="require_estimate" value="1"  (change)="requireEstimate($event)">
+
+              <label class="onoffswitch-label" for="myonoffswitch-estimate">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="form-group mb-2">
+        <label>Staff Login</label>
+
+        <div class="d-flex flex-wrap align-items-center">
+
+          <div class="col-sm-3 col-12">
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" formControlName="current_status" value="1"  (change)="active($event)">
+
+              <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-sm-9 col-12"><p style="margin: 0;">Requires email.</p></div>
+        </div>
+
+      </div>
+
+
+
+    </form>
+  </div>
+<div  class="col-lg-6 col-md-4 col-sm-12 col-12 mb-sm-0 mb-2" >
+    <button class="btn-bookAppoin staff-w-save-btn" type="button" placement="bottom" (click)="onSubmit();" style="display: inline-block;margin-right: 5px;">Save</button>
+
+    <button *ngIf="userDetails?.user_type=='admin'" class="btn-bookAppoin staff-w-save-btn" type="button" placement="bottom" (click)="forceLogout();" style="display: inline-block;">Log Out User
+    </button>
+  </div>
+  <div  class="col-lg-6 col-md-4 col-sm-12 col-12 mb-sm-0 mb-2" >
+
+  </div>
+
+
+</div>

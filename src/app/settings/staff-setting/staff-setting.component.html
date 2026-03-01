@@ -1,0 +1,116 @@
+<div class="account-settings" *ngIf="userDetails!=null">
+  <div class="account-settings-sidebar">
+    <h3>Staff</h3>
+    <div class="staff-buttons">
+      <button class="btn btn-lg" style="right: 4rem;" [hidden]="userDetails.user_type!='admin'" [autoClose]="'outside'" #popover="ngbPopover" [ngbPopover]="NCustompopContent" [popoverTitle]="NCustompopTitle"><img src="assets/images/plus.png" alt="" class="img-fluid"></button>
+      <button type="button" class="btn btn-delete btn-lg" (click)="deleteAll()" *ngIf="userDetails.user_type=='admin'">
+        <img src="assets/images/delete.png" alt="#" class="img-fluid">
+      </button>
+    </div>
+
+    <ng-template #NCustompopContent>
+      <form method="post" [formGroup]="staffForm"  *ngIf="staffForm">
+
+        <input type="text" class="form-control" placeholder="Name" formControlName="name" [ngClass]="{'parsley-error':staffForm.get('name').invalid && IsSubmitted}">
+           <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('name').invalid && IsSubmitted">
+            <li class="parsley-required">Please Enter Name</li>
+           </ul>
+
+
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'parsley-error':staffForm.get('email').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('email').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Email</li>
+           </ul>
+
+        <input type="text" class="form-control" placeholder="Mobile"  formControlName="phone_no" appPhoneFormat [ngClass]="{'parsley-error':staffForm.get('phone_no').invalid && IsSubmitted}" >
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('phone_no').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Mobile</li>
+
+         </ul>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'parsley-error':staffForm.get('password').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="staffForm.get('password').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter Password</li>
+           </ul>
+           <label>Is Admin</label>
+
+           <div class="onoffswitch">
+            <input type="checkbox"  class="onoffswitch-checkbox" id="user_type"  value="1"  [checked]="staffForm.value.user_type=='admin'"  (change)="active($event)">
+
+          <label class="onoffswitch-label" for="user_type">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
+
+      </form>
+
+      <button class="btn add-new-customer" (click)="addStaff(popover);">Add Staff</button>
+      <button class="btn btn-cancel" (click)="popover.close()">Cancel</button>
+    </ng-template>
+    <ng-template #NCustompopTitle>Add New Staff</ng-template>
+     <div class="staff_container" style="position:relative;">
+
+    <ul class="staff-list" *ngIf="staffs" id="sortable">
+
+      <li  style=" cursor: move;" class="ui-state-default"
+                      *ngFor="let staff of staffs; let i = index"
+                       (click)="staffDetail(staff)" data-id="{{staff.id}}"
+     [ngClass]="{'acive':staff.id==selected_staff.id,'dropped_item':staff.id==dropped_staff}">
+
+     <span><input type="checkbox" (click)="assignValue(staff,$event);">&nbsp;<img src="assets/images/default-user.png" alt=""> {{staff.name}}</span> <button (click)="deleteData(staff.id,$event)" *ngIf="userDetails.user_type=='admin'"><img src="assets/images/delete.png" alt="#" class="img-fluid"></button></li>
+
+
+
+    </ul>
+
+     </div>
+  </div>
+
+  <div class="account-settings-content">
+
+
+      <ngx-skeleton-loader animation="progress-dark" *ngIf="showLoading;else available_block"></ngx-skeleton-loader>
+      <ng-template #available_block>
+        <div class="alert alert-success" *ngIf="commonAvailable!='' && showAlert">
+          <strong>Available Date : <u><span style="cursor: pointer;"  (click)="rediretCalender(commonAvailable);">{{commonAvailable}}</span></u></strong>
+       </div>
+       <div class="alert alert-danger" *ngIf="commonAvailable=='' && showAlert">
+        <strong>Available Date : No Available Date</strong>
+     </div>
+      </ng-template>
+
+    <div class="customer-det-tabs">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="customerTbaactive" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Details</a>
+          <ng-template ngbNavContent>
+            <app-staff-details></app-staff-details>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2" style="display:none;">
+          <a ngbNavLink>Services</a>
+          <ng-template ngbNavContent>
+            <app-staff-services></app-staff-services>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>Working Hours</a>
+          <ng-template ngbNavContent>
+            <app-staff-working-hours (clearAvailable)="showAlert=false;"></app-staff-working-hours>
+          </ng-template>
+        </li>
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+
+  </div>
+
+</div>
+

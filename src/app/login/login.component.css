@@ -1,0 +1,57 @@
+h2
+{
+  font-size: 2rem;
+  color: var(--color-ashton-blue);
+  font-family: var(--font-Righteous);
+  line-height: 1.2;
+}
+.login-sec
+{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+.login-form
+{
+  padding: 10% 0 0;
+}
+.login-form form
+{
+  padding: 1.8rem 2.5rem;
+  text-align: left;
+  margin-top: 1.2rem;
+  border-radius: 0.3rem;
+  box-shadow: 0 1px 4px rgb(22 45 61 / 10%), 0 14px 32px rgb(22 45 61 / 8%);
+}
+.login-form form label
+{
+  margin-bottom: 0.5rem;
+}
+.login-form form a
+{
+  color: var(--color-midnight-express);
+}
+.forgot-password
+{
+  font-size: 1rem;
+  margin: 1rem 0;
+  display: block;
+  text-align: center;
+}
+.login-form form p
+{
+  font-size:0.8rem;
+  color: var(--color-lunar-shadow);
+  text-align: center;
+}
+.headding-text
+{
+  font-size: 1.5rem;
+}
+.btn-submit
+{
+  margin-top: 2rem;
+}
+

@@ -1,0 +1,45 @@
+<div class="staff-services">
+  <div class="staff-services-name">
+    <img src="assets/images/default-user.png" alt="#"> Services {{select_staff.name}}
+  </div>
+
+  <div class="staff-services-list">
+
+    <table class="table">
+      <tbody>
+        <tr>
+          <td colspan="3">
+            <div class="form-check-box">
+              <input type="checkbox" value="" id="defaultCheck0" checked>
+              <label for="defaultCheck0">
+                All Services
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let item of services;let i = index">
+          <td style="width: 70%;">
+            <div class="form-check-box">
+              <input type="checkbox" value="" id="defaultCheck{{item.id}}">
+              <label for="defaultCheck{{item.id}}">
+                {{item.service.name}}
+              </label>
+            </div>
+          </td>
+
+          <td>{{item.meeting_length}} mins</td>
+
+        </tr>
+
+         <tr *ngIf="services?.length == 0">
+             <td  colspan="2" style="text-align:center">
+                No Services Found
+             </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

@@ -1,0 +1,42 @@
+<header>
+  <div class="header-item">
+
+    <div class="d-flex flex-wrap align-items-center">
+
+      <div class="col-sm-6 col-6">
+        <h3>Calendar</h3>
+      </div>
+
+      <div class="col-sm-6 col-6">
+        <ul>
+            <li style="display:none;"><a href="#"><img src="assets/images/call.png" alt="#" class="img-fluid"> 2508857772</a></li>
+           <li style="display:none;">
+            <div ngbDropdown>
+              <button id="notificationBtn" ngbDropdownToggle><img src="assets/images/bail.png" alt="#"></button>
+              <div ngbDropdownMenu aria-labelledby="notificationBtn">
+                <h3 class="primary-header">Activity Stream</h3>
+                <ul>
+                  <li>dssdf</li>
+                  <li>dssdf</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div ngbDropdown>
+              <button id="userProfile" ngbDropdownToggle><img src="assets/images/default-user.png" alt="#"></button>
+              <div ngbDropdownMenu aria-labelledby="userProfile" class="user-profile">
+                <button ngbDropdownItem routerLink="/change-password" class="change-pwd">Change Password </button>
+                <button ngbDropdownItem (click)="logOut();" class="logout-btn">Logout </button>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+</header>

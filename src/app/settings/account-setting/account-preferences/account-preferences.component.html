@@ -1,0 +1,135 @@
+<h3 class="sub-title">Customize Account Appearances</h3>
+<div  class="col-sm-12 col-12">
+    <button class="btn-bookAppoin" type="button" placement="bottom" (click)="onSubmit();">Save</button>
+  </div>
+<div class="ca-appearances">
+    <form method="post" [formGroup]="calnderForm"  *ngIf="calnderForm">
+
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Default Calendar View</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="default_mode" id="inlineRadio1" value="resourceTimeGrid">
+            <label class="form-check-label" for="inlineRadio1">Daily Calendar</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="default_mode" id="inlineRadio2" value="timeGridWeek">
+            <label class="form-check-label" for="inlineRadio2">Weekly Calendar</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" formControlName="default_mode" id="inlineRadio3" value="dayGridMonth" >
+            <label class="form-check-label" for="inlineRadio3">Monthly Calendar</label>
+          </div>
+          <span>Only affects your calendar and not other staff in the same account.</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Custom Time Slot</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+        <input type="text" class="form-control" formControlName="time_interval" appNumericinput [ngClass]="{'parsley-error':calnderForm.get('time_interval').invalid && IsSubmitted}">
+         <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('time_interval').invalid && IsSubmitted">
+          <li class="parsley-required">Please Enter Custom Time Slot</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Time Picker Slot Size</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+           <input type="text" class="form-control" formControlName="timepicker_interval" appNumericinput [ngClass]="{'parsley-error':calnderForm.get('timepicker_interval').invalid && IsSubmitted}">
+            <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('timepicker_interval').invalid && IsSubmitted">
+          <li class="parsley-required">Please Enter Time Picker Slot Size</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Calendar Start Hour</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <select class="form-control" formControlName="start_hour" [ngClass]="{'parsley-error':calnderForm.get('start_hour').invalid && IsSubmitted}">
+              <option value="">Calendar Start Hour</option>
+              <option *ngFor="let item of hours" [ngValue]="item">{{item<=9?('0'+item):item}}</option>
+          </select>
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('start_hour').invalid && IsSubmitted">
+          <li class="parsley-required">Please Select Calendar Start Hour</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Calendar End Hour</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <select class="form-control" formControlName="end_hour" [ngClass]="{'parsley-error':calnderForm.get('end_hour').invalid && IsSubmitted}">
+              <option value="">Calendar End Hour</option>
+              <option *ngFor="let item of hours" [ngValue]="item">{{item<=9?('0'+item):item}}</option>
+          </select>
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('start_hour').invalid && IsSubmitted">
+          <li class="parsley-required">Please Select Calendar End Hour</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Default Color</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <input type="color" class="form-control" formControlName="default_color"  [ngClass]="{'parsley-error':calnderForm.get('default_color').invalid && IsSubmitted}">
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('default_color').invalid && IsSubmitted">
+          <li class="parsley-required">Please Choose Default Color</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Border Color</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <input type="color" class="form-control" formControlName="border_color"  [ngClass]="{'parsley-error':calnderForm.get('border_color').invalid && IsSubmitted}">
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('border_color').invalid && IsSubmitted">
+          <li class="parsley-required">Please Choose Border Color</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row align-items-center m-0">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-12"><h4>Job Completed Color</h4></div>
+
+        <div class="col-lg-5 col-md-6 col-sm-12 border-bottom-cus">
+          <input type="color" class="form-control" formControlName="completion_color"  [ngClass]="{'parsley-error':calnderForm.get('completion_color').invalid && IsSubmitted}">
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="calnderForm.get('completion_color').invalid && IsSubmitted">
+          <li class="parsley-required">Please Choose Job Completed Color</li>
+         </ul>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </form>
+</div>
+

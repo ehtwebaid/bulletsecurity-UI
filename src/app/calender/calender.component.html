@@ -1,0 +1,287 @@
+<div class="calender-top" *ngIf="userDetails!=null">
+  <div class="row align-items-center" (mouseleave)="datepicker_open=false">
+
+
+    <div class="col-lg-4 col-md-5 col-sm-12">
+      <ul>
+        <li *ngIf="staffs" [ngClass]="{'onlyStaff': staffs}">
+          <ng-select [(ngModel)]="staff_id" [clearable]="false" (change)="filterStaff($event);">
+            <ng-option [value]="''">All Staff</ng-option>
+            <ng-option *ngFor="let staff of staffs" [value]="staff.id"><img src="assets/images/default-user.png" alt="">
+              {{staff.name}}</ng-option>
+          </ng-select>
+          {{staff_id}}
+        </li>
+        <li>
+          <select class="form-control" [(ngModel)]="initialView" (change)="changecalMode();">
+            <option *ngFor="let item of calendermodes" [ngValue]="item.value">{{item.text}}</option>
+          </select>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="col-lg-4 col-md-5 col-sm-8 col-11">
+
+      <div class="d-flex" (mouseover)="datepicker_open=true">
+        <div class="col-sm-4 col-3"><span class="today" (click)="todayAppointment()">Today</span></div>
+        <div class="col-8 d-flex">
+          <span *ngIf="initialView=='resourceTimeGrid'" style="padding-right:10px;font-size:13px;">{{calHeading |
+            date:'EEE'}}</span>
+          <div class="calen-next-prev-box" style="position: relative;">
+            <a (click)="prevAppointment()" href="javascript:void(0)" class="btn-prev"> <img
+                src="assets/images/arrow-left.png" alt="" class="img-fluid"></a>
+            <span>{{calHeading}} <img src="assets/images/down-arrow.png" alt=""></span>
+
+
+            <a (click)="nextAppointment()" href="javascript:void(0)" class="btn-next"> <img
+                src="assets/images/arrow-right.png" alt="" class="img-fluid"></a>
+
+            <div class="w-100 date_picker">
+              <owl-date-time-inline *ngIf="datepicker_open" [(ngModel)]="selectedMoment" [pickerType]="'calendar'"
+                (ngModelChange)="gotoData();" [firstDayOfWeek]="1"></owl-date-time-inline>
+            </div>
+
+          </div>
+        </div>
+
+
+        <!-- <div class="col-2 text-right"><a (click)="prevAppointment()" href="javascript:void(0)" class="btn-prev"> <img src="assets/images/arrow-left.png" alt="" class="img-fluid"></a></div>
+        <div class="col-4">
+            {{calHeading}}
+           <owl-date-time-inline [(ngModel)]="selectedMoment" [pickerType]="'calendar'" (ngModelChange)="gotoData();"></owl-date-time-inline>
+
+        </div>
+        <div class="col-2"><a (click)="nextAppointment()" href="javascript:void(0)"  class="btn-next"> <img src="assets/images/arrow-right.png" alt="" class="img-fluid"></a></div> -->
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-2 col-sm-2 col-1" *ngIf="userDetails.user_type=='admin'">
+      <div class="calender-right-side">
+        <div ngbDropdown>
+          <a id="addBtn" ngbDropdownToggle><img src="assets/images/plus-sign.png" alt="#"></a>
+          <div ngbDropdownMenu aria-labelledby="addBtn">
+            <ul>
+              <li><a href="javascript:void(0)" (click)="redirectStaff();"><img src="assets/images/staff.png" alt=""
+                    class="img-fluid"> Add Staff</a></li>
+              <li><a href="javascript:void(0)" (click)="redirectService();"><img src="assets/images/services.png" alt=""
+                    class="img-fluid"> Add Service</a></li>
+              <li><a href="javascript:void(0)" (click)="redirectCustomer();"><img src="assets/images/people.png" alt=""
+                    class="img-fluid"> Add Customer</a></li>
+              <li><a href="javascript:void(0)" (click)="openmeetingModal();"><img src="assets/images/video-camera.png"
+                    alt="" class="img-fluid"> Add Appointment</a></li>
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row ">
+    <div class="col-sm-12 position-relative" *ngIf="calendarOptions.initialView">
+      <div class="selected-user" *ngIf="initialView=='timeGridDay' && selectedStaff">
+        <img src="assets/images/default-user.png" alt=""> {{selectedStaff.name}}
+      </div>
+
+      <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+    </div>
+  </div>
+</div>
+<ng-template #appointModal let-modal>
+  <div class="modal-header book-apoin-header">
+    <h4 class="modal-title" id="modal-basic-title">Appointment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body book-apoin-body">
+
+    <app-appointment-details></app-appointment-details>
+
+
+  </div>
+</ng-template>
+
+<style>
+
+</style>
+<div class="appointment-details" *ngIf="showPopup">
+  <div class="appointment-details-header">
+    Appointment Details
+    <button type="button" class="close" aria-label="Close" (click)="showPopup=false;">
+      <img src="assets/images/cross.png" style="height: 16px;">
+    </button>
+
+  </div>
+
+  <div class="appointment-details-body" style="height:22rem;">
+    <div class="d-flex flex-wrap mb-1">
+      <div class="col-sm-9 metting_start_at">{{popupData.metting_start_at}}</div>
+      <div class="col-sm-3">
+      </div>
+    </div>
+    <table class="" id="popup-info" style="width: 100%;">
+      <tbody>
+        <tr>
+          <td class="popup-info-label">Staff</td>
+          <td [innerHTML]="popupData.staff_name"></td>
+        </tr>
+        <tr>
+          <td class="popup-info-label">Cust. Name</td>
+          <td><a *ngIf="popupData?.appointmentDtl.customer_id;else no_customer"
+              routerLink="/customers/{{popupData?.appointmentDtl.customer_id}}">{{popupData?.appointmentDtl.name}}</a>
+            <ng-template #no_customer>
+              N/A
+            </ng-template>
+          </td>
+
+        </tr>
+        <tr>
+          <td class="popup-info-label">Contact 1</td>
+          <td>
+            {{popupData?.appointmentDtl.primary_contact_name || 'N/A'}}
+
+          </td>
+        </tr>
+        <tr>
+          <td class="popup-info-label">Phone #</td>
+          <td>
+            <a *ngIf="popupData?.appointmentDtl.mobile;else no_pri_no"
+              href="tel:+1{{popupData?.appointmentDtl.mobile}}">{{popupData?.appointmentDtl.mobile || 'N/A'}}</a>
+            <ng-template #no_pri_no>
+              {{popupData?.appointmentDtl.mobile || 'N/A'}}
+            </ng-template>
+          </td>
+
+        </tr>
+        <tr>
+          <td class="popup-info-label">Contact 2</td>
+          <td>
+            {{popupData?.appointmentDtl.alternate_name || 'N/A'}}
+
+          </td>
+
+        </tr>
+
+        <tr>
+          <td class="popup-info-label">Phone #</td>
+          <td>
+            <a href="tel:+1{{popupData?.appointmentDtl.alternate_mobile}}"
+              *ngIf="popupData?.appointmentDtl.alternate_mobile;else no_alt_no">{{popupData?.appointmentDtl.alternate_mobile
+              || 'N/A'}}</a>
+            <ng-template #no_alt_no>
+              {{popupData?.appointmentDtl.alternate_mobile || 'N/A'}}
+            </ng-template>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="popup-info-label">Address</td>
+          <td>
+            <a href="https://maps.google.com/?q={{popupData?.appointmentDtl.customer_address}}"
+              *ngIf="popupData?.appointmentDtl.customer_address; else no_address " target="_blank"
+              [innerHtml]="">{{(popupData?.appointmentDtl.customer_address | decodeHtmlString) || 'N/A'}}</a><br>
+            <ng-template #no_address>
+              N/A
+            </ng-template>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="popup-info-label">Customer Notes</td>
+          <td class="customer_note" *ngIf="popupData?.appointmentDtl.customer_notes;else no_cust_note"
+            innerHtml="{{popupData?.appointmentDtl.customer_notes}}"></td>
+          <ng-template #no_cust_note>
+            N/A
+          </ng-template>
+        </tr>
+        <tr>
+          <td class="popup-info-label">Cus. Link</td>
+          <td>
+            <a href="{{popupData?.appointmentDtl.customer_link }}" target="_blank"
+              *ngIf="popupData?.appointmentDtl.customer_link!='';else no_cus_link">{{popupData?.appointmentDtl.customer_link
+              }}</a>
+            <ng-template #no_cus_link>
+              <a href="javascript:void(0)">N/A</a>
+            </ng-template>
+
+
+          </td>
+
+        </tr>
+        <tr>
+          <td class="popup-info-label">Estimate</td>
+          <td innerHtml="{{popupData?.appointmentDtl.estimate || 'N/A'}}"></td>
+        </tr>
+        <tr>
+          <td class="popup-info-label">Job Status</td>
+          <td>{{popupData?.appointmentDtl.current_status == 'C' ? 'Complete' : 'Incomplete'}}</td>
+        </tr>
+
+        <tr>
+          <td class="popup-info-label">Project Manager</td>
+          <td innerHtml="{{popupData?.appointmentDtl.project_manager || 'N/A'}}"></td>
+        </tr>
+
+        <tr>
+
+          <td class="popup-info-label">Extra Materials </td>
+          <td>
+            <div [class.ql-editor]="popupData?.appointmentDtl.extra_materials!='N/A' "
+              innerHtml="{{popupData?.appointmentDtl.extra_materials || 'N/A'}}"></div>
+
+
+          </td>
+
+        </tr>
+        <tr>
+          <td class="popup-info-label">Summary of Work Done</td>
+          <td>
+            <div [class.ql-editor]="popupData?.appointmentDtl.summary!='N/A' "
+              innerHtml="{{popupData?.appointmentDtl.summary || 'N/A'}}"></div>
+
+          </td>
+        </tr>
+        <tr>
+          <td class="popup-info-label">Time In</td>
+          <td>{{popupData?.appointmentDtl.time_in?popupData?.appointmentDtl.time_in:'N/A' }}</td>
+
+        </tr>
+        <tr>
+          <td class="popup-info-label">Time Out</td>
+          <td>{{popupData?.appointmentDtl.time_out?popupData?.appointmentDtl.time_out:'N/A' }}
+          </td>
+        </tr>
+
+        <tr>
+
+          <td>Job Notes</td>
+          <td class="job_desc">
+            <div [class.ql-editor]="popupData?.appointmentDtl.service_name!='N/A' "
+              [innerHtml]="popupData?.appointmentDtl.service_name || 'N/A'" data-gramm="false" contenteditable="true"
+              data-placeholder="Install Notes">
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="appointment-details-footer">
+    <button type="button" class="btn btn-cancel" style="margin-right: 5px;;" (click)="addFovorite(popupData);">
+      <img src="assets/images/heart_fill.png" *ngIf="+popupData?.favourite_dtls?.is_favourite;else no_favorite"
+        style="height: 30px;width: 30px;">
+      <ng-template #no_favorite>
+        <img src="assets/images/heart.png" style="height: 30px;width: 30px;">
+      </ng-template>
+    </button>
+    <button type="button" class="btn btn-bookAppoin" (click)="showPopup=false;editEvent();">Edit Appointment</button>
+    <button type="button" class="btn btn-cancel"
+      (click)="showPopup=false;reschdule(popupData?.appointmentDtl.id,popupData?.appointmentDtl.is_recurring,popupData?.appointmentDtl.next_appointment);">Reschedule</button>
+    <button type="button" class="btn btn-cancel" (click)="showPopup=false;copyEvent();">Duplicate</button>
+    <button type="button" class="btn btn-cancel" (click)="showPopup=false;deleteEvent();">Delete</button>
+  </div>
+</div>

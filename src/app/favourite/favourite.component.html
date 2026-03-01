@@ -1,0 +1,250 @@
+<div class="customer-com" style="margin-left: 20px;">
+
+    <div class="customer-main">
+
+        <!-- details -->
+        <div class="customer-details">
+            <div class="cus-appointment">
+                <div class="cus-header">
+
+                    <span>Fovourite Appointments {{totalCount}} Appointment{{totalCount>1?'(s)':''}}</span>
+                  </div>
+
+                <table class="table" style="width:100%">
+                    <tbody *ngIf="appointments">
+                        <tr
+                            *ngFor="let appointment of appointments| paginate: {  id: 'all_apointment',itemsPerPage: itemsPerPage, currentPage: p, totalItems: totalCount }">
+                            <td class="booking-date"><a href="javascript:void(0)"
+                                    (click)="setDate(appointment.start_time);">{{appointment.start_time |
+                                    date:'d MMM' }}
+                                    {{appointment.start_time | date:'YY' }}
+                                </a></td>
+                            <td (click)="showPopup=true;currentValue=appointment;">
+                                {{appointment.start_time | date:'h:mm a'
+                                }}<span>{{appointment.meeting_length}} min</span>
+                            </td>
+                            <td (click)="showPopup=true;currentValue=appointment;">
+
+                                {{appointment?.customer!=null?appointment?.customer?.name:''}}
+                                <span>{{appointment.meeting_length}} Mins Meeting w/
+                                    {{appointment.staff.name}}</span>
+                            </td>
+                            <td (click)="showPopup=true;currentValue=appointment;">
+                                Estimate
+                                <span>{{appointment.estimate!=''?appointment.estimate:'N/A'}}</span>
+                            </td>
+
+                            <td>
+
+                                <a href="javascript:void(0)" (click)="currentValue=appointment;deleteEvent();" ><img src="assets/images/heart_pink.png" ></a>
+                            </td>
+
+                        </tr>
+                        <tr *ngIf="appointments.length<=0">
+                            <td colspan="5">No Fovourite(s)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <pagination-controls (pageChange)="getPage(p = $event)"
+                    id="all_apointment"></pagination-controls>
+            </div>
+
+        </div>
+        <!-- details -->
+
+        <!-- details -->
+
+
+        <!-- details -->
+
+    </div>
+
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header book-apoin-header">
+        <h4 class="modal-title" id="modal-basic-title">Appointment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body book-apoin-body">
+
+        <app-appointment-details></app-appointment-details>
+
+
+    </div>
+</ng-template>
+
+<div class="appointment-details" *ngIf="showPopup">
+
+    <div class="appointment-details-header">
+        Appointment Details <button type="button" class="close" aria-label="Close" (click)="closePopup();">
+            <img src="assets/images/cross.png" style="height: 16px;">
+
+        </button>
+    </div>
+    <div class="appointment-details-body" style="height:22rem;">
+        <div class="d-flex flex-wrap mb-1">
+            <div class="col-sm-9 metting_start_at"><a href="javascript:void(0)"
+                    (click)="setDate(currentValue.start_time);">{{currentValue.start_time | date:'EEE MMM dd, hh:mm'}} -
+                    {{currentValue.end_time | date:'hh:mm'}}</a></div>
+            <div class="col-sm-3">
+            </div>
+        </div>
+        <table class="" id="popup-info" style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td>Staff</td>
+                    <td [innerHTML]="currentValue?.all_staff_name"></td>
+                </tr>
+                <tr>
+                    <td class="popup-info-label">Cust. Name</td>
+                    <td><a *ngIf="currentValue?.customer?.id;else no_customer"
+                            routerLink="/customers/{{enCoded(currentValue?.customer?.id)}}">{{currentValue?.customer?.name}}</a>
+                        <ng-template #no_customer>
+                            N/A
+                        </ng-template>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Contact 1</td>
+                    <td>
+                        {{currentValue?.customer?.primary_contact_name || 'N/A'}}
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Phone #</td>
+                    <td>
+                        <a *ngIf="currentValue?.customer?.mobile;else no_pri_no"
+                            href="tel:+1{{currentValue?.customer?.mobile}}">{{currentValue?.customer?.mobile || 'N/A'}}</a>
+                        <ng-template #no_pri_no>
+                            {{currentValue?.customer?.mobile || 'N/A'}}
+                        </ng-template>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Contact 2</td>
+                    <td>
+                        {{currentValue?.customer?.alternate_name || 'N/A'}}
+
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>Phone #</td>
+                    <td>
+                        <a href="tel:+1{{currentValue?.customer?.alternate_mobile}}"
+                            *ngIf="currentValue?.customer?.alternate_mobile;else no_alt_no">{{currentValue?.customer?.alternate_mobile
+                            || 'N/A'}}</a>
+                        <ng-template #no_alt_no>
+                            {{currentValue?.customer?.alternate_mobile || 'N/A'}}
+                        </ng-template>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>
+                        <a href="https://maps.google.com/?q={{currentValue?.customer?.address}}"
+                            *ngIf="currentValue?.customer?.address; else no_address " target="_blank"
+                            [innerHtml]="">{{(currentValue?.customer?.address | decodeHtmlString) || 'N/A'}}</a><br>
+                        <ng-template #no_address>
+                            N/A
+                        </ng-template>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="popup-info-label">Cus. Link</td>
+                    <td>
+                        <a href="{{currentValue?.customer?.customer_link }}" target="_blank"
+                            *ngIf="currentValue?.customer?.customer_link!='';else no_cus_link">{{currentValue?.customer?.customer_link
+                            }}</a>
+                        <ng-template #no_cus_link>
+                            <a href="javascript:void(0)">N/A</a>
+                        </ng-template>
+
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Customer Notes</td>
+                    <td innerHtml="{{currentValue?.customer?.notes}}" class="customer_note"
+                        *ngIf="currentValue?.customer?.notes;else no_note"></td>
+                    <ng-template #no_note>
+                        <td>N/A</td>
+                    </ng-template>
+
+
+                </tr>
+                <tr>
+                    <td>Estimate</td>
+                    <td innerHtml="{{currentValue.estimate || 'N/A'}}"></td>
+                </tr>
+                <tr>
+                    <td>Project Manger</td>
+                    <td innerHtml="{{currentValue.project_manager || 'N/A'}}"></td>
+                </tr>
+                <tr>
+
+
+                    <td>Job Status</td>
+                    <td>{{currentValue.current_status=='C'?'Complete':'Incomplete'}}</td>
+                </tr>
+
+
+                <tr>
+                    <td>Extra Materials </td>
+                    <td>
+                        <div [class.ql-editor]="currentValue.extra_materials!='' "
+                            [innerHtml]="currentValue.extra_materials || 'N/A'"></div>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Summary of Work Done</td>
+                    <td>
+                        <div [class.ql-editor]="currentValue.summary!='' " [innerHtml]="currentValue.summary || 'N/A'">
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Time In</td>
+                    <td>{{currentValue.time_in?currentValue.time_in:'N/A' }}
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>Time Out</td>
+                    <td>{{currentValue.time_out?currentValue.time_out:'N/A'
+                        }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Job Notes</td>
+                    <td class="job_desc" colspan="2">
+
+                        <div [class.ql-editor]="currentValue.notes!='N/A' " [innerHtml]="currentValue.notes || 'N/A'"
+                            data-gramm="false" contenteditable="true" data-placeholder="Install Notes">
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="appointment-details-footer">
+
+        <button type="button" class="btn btn-bookAppoin" (click)="closePopup();editEvent();">Edit Appointment</button>
+        <button type="button" class="btn btn-cancel" (click)="closePopup();copyEvent();">Duplicate</button>
+        <button type="button" class="btn btn-cancel" (click)="closePopup();deleteEvent();">Delete</button>
+    </div>
+</div>

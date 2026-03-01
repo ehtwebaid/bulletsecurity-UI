@@ -1,0 +1,26 @@
+<div class="sidebar" *ngIf="userDetails!=null">
+   <ul>
+      <li >
+         <a routerLink="/calender" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+         <img src="assets/images/calender.png" alt="" class="img-fluid">
+         <span class="tooltiptext">Calender</span>
+         </a>
+      </li>
+      <li ><a routerLink="/customers"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+         <img src="assets/images/users.png" alt="" class="img-fluid">
+         <span class="tooltiptext">Customers</span>
+         </a>
+      </li>
+      <li *ngIf="userDetails.user_type=='admin'" >
+         <a routerLink="/setting/account-setting" [ngClass]="{'active':activeRoute}" >
+         <img src="assets/images/setting.png" alt="" class="img-fluid">
+         <span class="tooltiptext">Setting</span></a>
+      </li>
+      <li ><a routerLink="/favourite"  routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+         <img src="assets/images/heart_white.png" alt="" class="img-fluid">
+         <span class="tooltiptext">Favourite</span>
+         </a>
+      </li>
+   </ul>
+</div>
+

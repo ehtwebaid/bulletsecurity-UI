@@ -1,0 +1,90 @@
+
+.cus-header
+{
+  border-bottom: 1px solid var(--color-orochimaru);
+  padding: 1rem 0;
+}
+.cus-header .btn-lg
+{
+  width: 2.1rem;
+  padding: 0.6rem;
+  border: 1px solid var(--color-smoke-screen);
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  line-height: 0;
+  margin-right: 0.5rem;
+  text-align: center;
+  transition: all .5s ease-in-out;
+}
+.cus-header .btn-lg:hover
+{
+  background: var(--color-smoke-screen);
+}
+
+.cus-header span
+{
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-shadow-mountain);
+}
+
+
+
+table,tr,td
+{
+  border: none !important;
+  font-size: 0.9rem;
+  color: var(--color-midnight-express);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.table
+{
+  vertical-align: middle;
+  border-collapse:separate;
+  border-spacing: 0 1em;
+}
+
+tr
+{
+  background: var(--color-cascading-white);
+}
+td:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  padding-left: 0.6rem;
+}
+td:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding-right: 0.6rem;
+}
+td span
+{
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-frost-grey);
+}
+td img
+{
+  width: 1.2rem;
+  margin-right: 0.7rem;
+}
+.booking-date
+{
+  
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-waterline-blue);
+}
+.popup-info-label{
+  width: 25%;
+}
+.appointment-details-body tr {
+  background:none !important;
+}
+.customer_note{
+  background-color: yellow !important;
+  }

@@ -1,0 +1,30 @@
+
+
+<div class="account-settings">
+   <div class="account-settings-sidebar">
+      <h3>Account</h3>
+      <ul class="account-settings-menu">
+         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a routerLink="/setting/account-setting/account-preferences">
+            <img src="assets/images/preferences.png" alt="#"> Preferences
+            </a>
+         </li>
+         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a routerLink="/setting/account-setting/company-details">
+            <img src="assets/images/company.png" alt="#"> Company Details
+            </a>
+         </li>
+         <!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+            true}"><a routerLink="/setting/account-setting/account-preferences"><img src="assets/images/billing.png" alt="#"> Billing History</a></li> -->
+         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <a routerLink="/setting/account-setting/basic-reporting">
+            <img src="assets/images/repoting.png" alt=""> Basic Reporting
+            </a>
+         </li>
+      </ul>
+   </div>
+   <div class="account-settings-content">
+      <router-outlet></router-outlet>
+   </div>
+</div>
+

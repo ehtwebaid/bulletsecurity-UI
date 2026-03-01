@@ -1,0 +1,71 @@
+.ca-appearances .form-check-label
+{
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.sub-title
+{
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.ca-appearances
+{
+  padding: 1rem 1rem 1rem 0;
+  margin: 1rem 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+}
+.ca-appearances h4
+{
+  padding: 1.5rem 1rem;
+  background: #f7f8f8;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-midnight-express);
+}
+.ca-appearances span
+{
+  font-size: 0.7rem;
+  color: #808081;
+  font-weight: 600;
+  display: block;
+}
+.border-bottom-cus
+{
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 0.5rem;
+}
+.form-group
+{
+  margin-bottom: 0.4rem;
+}
+select.form-control
+{
+  background: url(../../../../assets/images/down-arrow.png);
+  background-size: 8px;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+.btn-bookAppoin{
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  margin: 0.5rem 0 0 auto;
+  display: block;
+  transition: all .5s ease-in-out;
+}
+.btn-bookAppoin:focus,
+.btn-bookAppoin:hover
+{
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+

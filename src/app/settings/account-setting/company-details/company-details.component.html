@@ -1,0 +1,122 @@
+<div class="comp-details">
+    <div class="comp-top">
+
+      <div class="comp-logo">
+        <img src="assets/images/default-user-big.png" alt="" class="img-fluid">
+        <div class="logo-upload">
+          <input type="file">
+          <img src="assets/images/edit.png" alt="" class="img-fluid">
+        </div>
+      </div>
+
+      <div class="comp-name">
+
+        <h3>Name</h3>
+        <p>{{companyDetail.company_name}}</p>
+
+      </div>
+
+      <div class="comp-edit-btn">
+        <button class="btn" (click)="editDetailsBtn()"><img src="assets/images/edit.png" alt="" class="img-fluid"></button>
+      </div>
+
+    </div>
+
+    <div class="company-body" *ngIf="!editDetails">
+
+
+
+      <p>
+        <strong>Company Name</strong>
+        {{companyDetail.company_name}}
+      </p>
+
+      <p>
+        <strong>Industry</strong>
+         {{companyDetail.industry}}
+      </p>
+
+      <p>
+        <strong>Phone</strong>
+         {{companyDetail.phone_no}}
+      </p>
+
+      <p>
+        <strong>Country</strong>
+        {{companyDetail.country}}
+      </p>
+
+      <p>
+        <strong>Currency</strong>
+        {{companyDetail.currency}}
+      </p>
+
+    </div>
+
+
+    <div class="company-edit-form" *ngIf="editDetails">
+     <form method="post" [formGroup]="companyForm" (ngSubmit)="SubmitData()">
+      <div class="row">
+
+        <div class="col-md-6 col-sm-6 col-12">
+          <label>Company Name</label>
+          <input type="text" class="form-control" formControlName="company_name" [ngClass]="{'parsley-error':companyForm.get('company_name').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="companyForm.get('company_name').invalid && IsSubmitted">
+                <li class="parsley-required">Please Enter Company Name !!</li>
+               </ul>
+
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-12">
+          <label>Industry</label>
+
+          <input type="text" class="form-control" formControlName="industry" [ngClass]="{'parsley-error':companyForm.get('industry').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="companyForm.get('industry').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Enter Industry !!</li>
+          </ul>
+
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-12">
+          <label>Phone</label>
+          <input type="text" class="form-control" appPhoneFormat minlength="10" maxlength="10" formControlName="phone_no" [ngClass]="{'parsley-error':companyForm.get('phone_no').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="companyForm.get('phone_no').invalid && IsSubmitted">
+                <li class="parsley-required">Please Enter Phone No !!</li>
+          </ul>
+
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-12">
+          <label>Country</label>
+          <input type="text" class="form-control" formControlName="country" [ngClass]="{'parsley-error':companyForm.get('country').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="companyForm.get('country').invalid && IsSubmitted">
+                <li class="parsley-required">Please Enter Country !!</li>
+          </ul>
+
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-12">
+          <label>Currency</label>
+          <input type="text" class="form-control" formControlName="currency" [ngClass]="{'parsley-error':companyForm.get('currency').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="companyForm.get('currency').invalid && IsSubmitted">
+                <li class="parsley-required">Please Enter Currency !!</li>
+          </ul>
+
+
+        </div>
+
+        <div class="col-12">
+            <button _ngcontent-sho-c199="" class="btn add-new-customer" type="submit">Update Details</button>
+        </div>
+
+      </div>
+      </form>
+    </div>
+
+</div>

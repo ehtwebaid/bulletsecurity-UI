@@ -1,0 +1,264 @@
+<form method="post" [formGroup]="appointmentForm" (ngSubmit)="submitData()" *ngIf="filtersLoaded | async">
+
+<div class="row">
+   <div class="col-sm-6 col-12 p-4  pt-0">
+      <div class="form-group mb-3 form_item" style="margin-top:0.3rem;">
+        <div class="row">
+          <div class="col-md-{{appointmentForm?.value?.id==''?6:12}}">
+            <ng-select [items]="staffs"
+                 formControlName="staff_id"
+                 placeholder="Select Staff"
+                 bindLabel="name"
+                 bindValue="id" [multiple]="false"
+                 (change)="setEstimate($event)"
+                 >
+                 </ng-select>
+                  <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="appointmentForm.get('staff_id').invalid && IsSubmitted">
+                  <li class="parsley-required">Please Select Staff</li>
+                 </ul>
+           </div>
+           <div class="col-md-6" *ngIf="appointmentForm?.value?.id==''">
+            <ng-select [items]="staffs"
+                 formControlName="staff_id_sub"
+                 placeholder="Select Staff"
+                 bindLabel="name"
+                 bindValue="id" [multiple]="false"
+
+                 >
+                 </ng-select>
+
+           </div>
+        </div>
+
+      </div>
+      <div class="form-group mb-3 form_item">
+         <ng-select formControlName="customerservice_id" (change)="selectService($event)" [searchable]="false">
+               <ng-option value="">Select Service</ng-option>
+               <ng-option *ngFor="let service of cutomer_services"  [value]="service.id">
+                <span class='' style='background-color:{{service.color}};height:15px; width:15px;display:inline-block;margin:3px'></span><span style="vertical-align: top;">{{ service.name }}</span></ng-option>
+               </ng-select>
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="appointmentForm.get('duration').invalid && IsSubmitted">
+                <li class="parsley-required">Please Select Service</li>
+          </ul>
+
+      </div>
+      <div class="form-group mb-3 form_item" *ngIf="stepMinute">
+
+         <input  [owlDateTime]="dt1" class="form-control"  [owlDateTimeTrigger]="dt1" placeholder="Date/Time" formControlName="start_time"  [ngClass]="{'parsley-error':appointmentForm.get('start_time').invalid && IsSubmitted}">
+
+         <owl-date-time [disabled]="is_recurring"  #dt1 [stepMinute]="stepMinute" [firstDayOfWeek]="1" [hour12Timer]="true" (afterPickerClosed)="changerecurringOpt();changeDate();" ></owl-date-time>
+
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('start_time').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Enter Date/Time</li>
+          </ul>
+
+      </div>
+      <div class="form-group mb-3 form_item" >
+         <ng-select
+               formControlName="is_repeat"
+               (change)="changeRecurring()"
+               [multiple]="false"
+               [readonly]="is_recurring"
+               [clearable]="false"
+               >
+               <!-- <ng-option value="">Repeat</ng-option> -->
+                <ng-option *ngFor="let item of recurring_types" [value]="item.key">{{item.value}}</ng-option>
+         </ng-select>
+
+      </div>
+      <div class="form-group mb-3 form_item" *ngIf="appointmentForm.value.is_repeat=='C'">
+          <div class="d-flex flex-wrap">
+          <div class="col-sm-6 col-12 pr-1">
+           <select class="form-control"  formControlName="custom_duration" >
+            <option value="" [disabled]="is_recurring===true">Every</option>
+            <option value="{{item}}" [disabled]="is_recurring===true" *ngFor="let item of custom_durations">{{item}}</option>
+         </select>
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('custom_duration').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Select This</li>
+          </ul>
+          </div>
+          <div class="col-sm-6 col-12 pr-1">
+          <select class="form-control form_item"  formControlName="custom_type" [disabled]="is_recurring===true">
+            <option value="" [disabled]="is_recurring===true">Custom Type</option>
+            <option value="{{item.key}}" [disabled]="is_recurring===true"  *ngFor="let item of custom_recurring_types">{{item.value}}</option>
+         </select>
+          <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('custom_type').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Select This</li>
+          </ul>
+          </div>
+
+          </div>
+
+
+      </div>
+      <div class="form-group mb-3 form_item" *ngIf="appointmentForm.value.is_repeat!='N' && appointmentForm.value.is_repeat!=''">
+
+         <input type="text" class="form-control" [readonly]="is_recurring"  formControlName="no_term" appNumericinput  placeholder="Term">
+         <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('no_term').invalid && IsSubmitted">
+               <li class="parsley-required">Please Enter Term</li>
+         </ul>
+         </div>
+
+
+      <!-- <div class="form-group mb-3 form_item">
+      </div> -->
+      <div class="form-group mb-3 form_item">
+        <div class="row">
+          <div class="col-6">
+            <input type="text" class="form-control"  formControlName="estimate" placeholder="Estimate">
+            <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('estimate').invalid && IsSubmitted">
+              <li class="parsley-required">Please Enter Estimate</li>
+        </ul>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control"  formControlName="project_manager" placeholder="Project Manager">
+
+          </div>
+        </div>
+
+     </div>
+      <div class="form-group mb-3 form_item">
+        <div class="row">
+          <div class="col-md-4">
+            Job Complete
+            <div class="d-flex">
+              <div class="onoffswitch me-2">
+                <input type="checkbox" name="current_status" class="onoffswitch-checkbox"
+                  [checked]="appointmentForm.value.current_status=='C'" id="current_status" value="1" (change)="changeStatus($event)">
+                  <label class="onoffswitch-label" for="current_status">
+                  <span class="onoffswitch-inner"></span>
+                  <span class="onoffswitch-switch"></span>
+                  </label>
+              </div>
+              <span class="img-h align-items-center" (click)="IsFavorite()" style="cursor: pointer;">
+                <img src="assets/images/heart_fill.png" *ngIf="appointmentForm.value?.is_favourite;else no_favorite">
+                <ng-template #no_favorite>
+                  <img src="assets/images/heart.png" >
+                </ng-template>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4">
+
+          <input type="text" class="form-control"   formControlName="time_in" placeholder="Time In">
+
+          </div>
+          <div class="col-md-4">
+          <input type="text" class="form-control" formControlName="time_out"
+            placeholder="Time Out">
+          </div>
+
+        </div>
+
+      </div>
+      <div class="form-group mb-3 form_item">
+          <quill-editor [styles]="{height: '80px'}" formControlName="extra_materials" placeholder="Any extra materials used"></quill-editor>
+      </div>
+     <div class="form-group form_item">
+          <quill-editor [styles]="{height: '80px'}" formControlName="summary" placeholder="Summary of work done"></quill-editor>
+      </div>
+   </div>
+   <div class="col-sm-6 col-12 border-left  p-4 pt-0">
+
+      <div class="form-group mb-3 form_item" [hidden]="!show_customer" style="margin-top:0.3rem;">
+         <ng-select [items]="clients"
+               formControlName="customer_id"
+               placeholder="Type and Select Customer"
+               bindLabel="name"
+               (change)="selectCustomer($event)"
+               bindValue="c_id" [multiple]="false"
+               (search)="allCustomers($event)"
+               (scrollToEnd)="resetOffset()"
+               [addTag]="addTag"
+               addTagText="Add New Customer"
+               [loading]="loadItem"
+               loadingText="Loading..."
+               >
+               </ng-select>
+         <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="appointmentForm.get('customer_id').invalid && IsSubmitted">
+                <li class="parsley-required">Please Select Customer</li>
+          </ul>
+
+      </div>
+      <div class="form-group mb-3 form_item">
+         <input type="text" class="form-control" placeholder="Name" formControlName="name"  >
+
+         <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="appointmentForm.get('name').invalid && IsSubmitted">
+                <li class="parsley-required">Please Enter Name</li>
+          </ul>
+
+      </div>
+
+      <div class="form-group mb-3 form_item">
+        <div class="d-flex flex-wrap">
+         <div class="col-sm-8 col-12 pr-1">
+         <input type="text" class="form-control" formControlName="primary_contact_name" placeholder="Primary Contact Name" [ngClass]="{'parsley-error':appointmentForm.get('primary_contact_name').invalid && IsSubmitted}">
+
+         <ul class="parsley-errors-list filled" aria-hidden="false" *ngIf="appointmentForm.get('primary_contact_name').invalid && IsSubmitted">
+                <li class="parsley-required">Please Select Customer Name</li>
+          </ul>
+
+         </div>
+         <div class="col-sm-4 col-12 pr-1">
+
+         <input type="text" class="form-control" formControlName="mobile" placeholder="Phone #" appPhoneFormat>
+         </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 form_item">
+         <div class="d-flex flex-wrap">
+          <div class="col-sm-8 col-12 pr-1">
+         <input type="text" class="form-control" placeholder="Alternate Contact Name" formControlName="alternate_name"  >
+          </div>
+        <div class="col-sm-4 col-12 pr-1">
+         <input type="text" class="form-control" formControlName="alternate_mobile" placeholder="Phone #" appPhoneFormat>
+        </div>
+      </div>
+
+      </div>
+      <div class="form-group mb-3 form_item">
+         <input type="text" class="form-control" placeholder="Address" formControlName="address" placeholder="Address">
+
+      </div>
+      <div class="form-group mb-3 form_item">
+        <input type="text" class="form-control" formControlName="customer_notes" placeholder="Customer Notes">
+
+      </div>
+      <div class="form-group mb-3 form_item">
+        <input type="text" class="form-control" formControlName="customer_link" placeholder="Customer Link">
+
+        <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="appointmentForm.get('customer_link').invalid && IsSubmitted">
+
+          <li class="parsley-required">Please Enter a valid link</li>
+
+         </ul>
+
+      </div>
+      <div class="form-group mb-3 form_item">
+      <quill-editor [styles]="{height: '193px'}" [modules]="modules" formControlName="notes" placeholder="Install Notes"></quill-editor>
+
+      </div>
+      <div class="form-group">
+          <button class="btn btn-bookAppoin btn-new-customer" style=" display:none;">+ New Customer</button>
+
+
+         <input type="submit" class="btn btn-bookAppoin w-100" value="{{is_duplicate?'Duplicate':'Save Appointment'}}" [disabled]="appointmentForm.value.staff_id==''">
+      </div>
+   </div>
+</div>
+</form>
+
+
+
+<style>
+    .owl-dt-container-inner{ z-index:99999 !important;}
+    .form_item{
+  margin-bottom:0.3rem !important;
+}
+</style>
+

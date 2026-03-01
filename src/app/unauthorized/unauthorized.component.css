@@ -1,0 +1,29 @@
+.w3-display-middle
+{
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.w3-display-middle div
+{
+  width: 50%;
+}
+a
+{
+  padding: 0.8rem 1.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    background: var(--color-midnight-express);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-top: 15px;
+}
+h3 span
+{
+  font-size: 1.2rem;
+}

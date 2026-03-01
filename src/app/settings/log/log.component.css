@@ -1,0 +1,44 @@
+.basic-reporting
+{
+  padding: 1rem;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.4rem;
+  margin: 1rem 0;
+}
+h3
+{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.btn-bookAppoin
+{
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all .5s ease-in-out;
+  margin: 1.6rem 0 0;
+}
+.btn-bookAppoin:focus,
+.btn-bookAppoin:hover
+{
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+label, .form-control
+{
+  font-size: 0.8rem;
+}
+.form-control
+{
+  height: 2.3rem;
+}
+table
+{
+  font-size: 13px;
+}

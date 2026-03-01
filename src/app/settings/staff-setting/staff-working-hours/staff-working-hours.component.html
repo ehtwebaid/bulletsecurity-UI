@@ -1,0 +1,59 @@
+<div class="staff-services">
+  <div class="staff-services-name">
+    <img src="assets/images/default-user.png" alt="#"> Working Hours {{select_staff.name}}
+  </div>
+
+  <div class="staff-services-list">
+
+    <div class="d-flex flex-wrap">
+      <div class="col-lg-10 col-md-10 col-sm-12 col-12">
+        <form method="post" [formGroup]="workinghourForm" >
+          <div class="table-responsive">
+        <table class="table">
+          <tbody formArrayName="workinghours">
+            <tr *ngFor="let item of workinghourForm.get('workinghours')['controls'] let i = index;" [formGroupName]="i">
+
+              <td>
+              {{workinghourForm.get("workinghours")['controls'][i].value.day_name  }}
+              </td>
+              <td>
+                <div class="onoffswitch" >
+                  <input type="checkbox" value="1"formControlName="is_weekday"  name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch{{i}}">
+                  <label class="onoffswitch-label" for="myonoffswitch{{i}}">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                  </label>
+                </div>
+              </td>
+              <ng-container *ngIf='workinghourForm.get("workinghours")["controls"][i].value.is_weekday;else day_off'>
+                <td class="wh-time"><input type="time" class="form-control" formControlName="start_time"></td>
+                <td align="center">to</td>
+                <td class="wh-time"><input type="time" class="form-control" formControlName="end_time"></td>
+              </ng-container>
+              <ng-template #day_off>
+                <td colspan="3">
+                  <span class="day-off">Day off</span>
+                </td>
+              </ng-template>
+
+
+            </tr>
+
+
+
+          </tbody>
+        </table>
+      </div>
+      </form>
+    </div>
+      <div  class="col-lg-2 col-md-2 col-sm-12 col-12 ">
+        <button class="btn-bookAppoin staff-w-save-btn" type="button" placement="bottom" (click)="onSubmit();">Save</button>
+      </div>
+    </div>
+    <hr>
+<!--    <a  class="edit-wh">Edit working hours</a>-->
+
+  </div>
+
+</div>
+

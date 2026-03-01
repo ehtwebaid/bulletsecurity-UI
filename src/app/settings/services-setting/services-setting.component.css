@@ -1,0 +1,349 @@
+.account-settings
+{
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: baseline; */
+  height: 100%;
+}
+.account-settings-sidebar
+{
+  flex:0 0 20%;
+  max-width: 20%;
+  height: 100%;
+  background: var(--color-whiteout);
+  padding: 1.5rem 1rem 1rem;
+  position: relative;
+}
+.account-settings-content
+{
+  flex: 0 0 80%;
+  max-width: 80%;
+  padding: 1.5rem;
+  /* position: relative; */
+}
+
+.account-settings-sidebar h3
+{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.account-settings-content-box
+{
+  padding: 1.2rem 1.8rem;
+}
+
+
+.btn-lg
+{
+  background: var(--color-midnight-express);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.1rem 0.5rem;
+}
+.btn-lg img
+{
+  position: relative;
+  top: -1px;
+  transform: scale(0.8);
+  filter: invert(100%);
+}
+.add-new-customer:focus,
+.btn-cancel:focus
+{
+  outline: none;
+  box-shadow: none;
+}
+.add-new-customer
+{
+  padding: 0.5rem 1rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.3rem;
+  transition: all .5s ease-in-out;
+}
+.btn-cancel
+{
+  padding: 0.5rem 1rem;
+  background: var(--color-chefs-hat);
+  color: var(--color-midnight-express);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  transition: all .5s ease-in-out;
+  margin-left: 0.5rem;
+  border: none;
+}
+.btn-cancel:hover
+{
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+}
+.add-new-customer:hover
+{
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+.staff-list
+{
+  margin: 3rem 0 0;
+  padding: 0;
+}
+.staff-list li
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-black-emerald);
+  transition: all .5s ease-in-out;
+}
+.staff-list li.acive,
+.staff-list li:hover
+{
+  background: var(--color-crystal-bell);
+}
+.staff-list li img
+{
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0 0.3rem;
+}
+.staff-list li button
+{
+  border: none;
+  background: transparent;
+  visibility: hidden;
+  transition: all .5s ease-in-out;
+}
+.staff-list li button img
+{
+  width: 15px;
+  height: inherit;
+  margin: 0;
+}
+.staff-list li.acive button,
+.staff-list li:hover button
+{
+  visibility: visible;
+}
+
+.form-control {
+  border: 1px solid var(--color-extraordinary-abundance-of-tinge);
+  height: 2.5rem;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+.sub-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.btn-bookAppoin {
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all .5s ease-in-out;
+}
+.btn-bookAppoin:focus, .btn-bookAppoin:hover {
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+.all-services-box {
+  padding: 1rem 1rem 1rem 0;
+  margin: 1rem 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+}
+
+.all-services-box ul
+{
+  margin: 0;
+  padding: 0;
+}
+.all-services-box ul li
+{
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #ebebeb;
+  margin: 0.8rem;
+  padding: 0 0 0.8rem;
+}
+.mins-box
+{
+  flex: 0 0 4rem;
+  max-width: 4rem;
+  height: 4rem;
+  border-radius: 0.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-white);
+  text-align: center;
+  line-height: 4rem;
+}
+.color-ashton-blue
+{
+  background: var(--color-ashton-blue);
+}
+.color-mint-jelly
+{
+  background: var(--color-mint-jelly);
+}
+.color-starship
+{
+  background: var(--color-starship);
+}
+.service-details
+{
+  flex: 0 0 40%;
+  max-width: 40%;
+  padding:0 0.5rem;
+  text-align: right;
+}
+.service-disc-box
+{
+  flex: 0 0 calc(100% - 5rem - 40%);
+  max-width: calc(100% - 5rem - 40%);
+
+  margin: 0 0.5rem;
+}
+.service-disc-box h4
+{
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+  margin: 0;
+  line-height: 1.5;
+}
+.service-disc-box p
+{
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #808081;
+  margin: 0;
+  line-height: 1.2;
+}
+.service-disc-box-cont
+{
+  background: #f7f8f8;
+  padding:0.5rem;
+  display: inline-block;
+}
+.service-details span
+{
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #d1d2d1;
+  padding: 0 0.5rem;
+}
+.cusetomet-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-ashton-blue);
+}
+.cusetomet-name  img{
+  width: 1.8rem;
+  margin-right: 0.8rem;
+}
+
+.form-check-box
+{
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+  min-width: 11rem;
+  margin: 0 0 0.5rem;
+}
+input[type="checkbox"]
+{
+  opacity: 0;
+}
+.all-staff p 
+{
+  font-size: 0.8rem;
+}
+.form-check-box label
+{
+  padding-left: 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin: 0;
+  cursor: pointer;
+}
+.form-check-box label::before
+{
+  content: '';
+  position: absolute;
+  top: 55%;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  background: url(../../../assets/images/plus.png);
+  background-size: 15px;
+  background-repeat: no-repeat;
+}
+.form-check-box label:after
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.add-services-box input[type="checkbox"]:checked + label:after
+{
+  background: var(--color-midnight-express);
+}
+.add-services-box input[type="checkbox"]:checked + label:before
+{
+  background: url(../../../assets/images/checked.png);
+  background-size: 15px;
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+.add-services-box input[type="checkbox"]:checked + label
+{
+  color: var(--color-white);
+}
+.dd-services-box p
+{
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-lunar-shadow);
+  margin: 0 0 0.5rem;
+}
+.comp-edit-btn .btn
+{
+  width: 2rem;
+  height: 2rem;
+  padding:0;
+  border: 1px solid var(--color-midnight-express);
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  line-height: 0;
+}
+.comp-edit-btn .btn img
+{
+  width: 15px;
+}

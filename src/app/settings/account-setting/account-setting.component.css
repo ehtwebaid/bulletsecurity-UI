@@ -1,0 +1,66 @@
+.account-settings
+{
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: baseline; */
+  height: 100%;
+}
+.account-settings-sidebar
+{
+  flex:0 0 20%;
+  max-width: 20%;
+  height: 100%;
+  background: var(--color-whiteout);
+  padding: 1rem;
+}
+.account-settings-content
+{
+  flex: 0 0 80%;
+  max-width: 80%;
+  padding: 1.5rem;
+  /* position: relative; */
+}
+.account-settings-sidebar h3
+{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+}
+.account-settings-content-box
+{
+  padding: 1.2rem 1.8rem;
+}
+
+/* .account-settings-content .nav
+{
+  position: absolute;
+  top: 18.5%;
+  left: 15.5%;
+  width: 230px;
+} */
+.account-settings-menu
+{
+  margin: 0;
+  padding: 0;
+}
+.account-settings-menu li
+{
+  margin: 0.2rem 0;
+}
+.account-settings-menu img
+{
+  width: 1rem;
+}
+.account-settings-menu li a
+{
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+  padding:0.5rem 1rem;
+  display: block;
+  border-radius: 0.2rem;
+}
+.account-settings-menu li.active a
+{
+  background-color: var(--color-crystal-bell);
+}

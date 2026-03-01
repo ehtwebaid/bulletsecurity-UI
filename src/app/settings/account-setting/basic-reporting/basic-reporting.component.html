@@ -1,0 +1,85 @@
+<h3 class="sub-title">Basic Reporting</h3>
+<div class="basic-reporting">
+   <form method="post" [formGroup]="searchForm" (ngSubmit)="filterData()" *ngIf="searchForm">
+   <div class="row justify-content-center align-items-center">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>Start Date</label>
+         <input  [owlDateTime]="dt1" class="form-control" formControlName="start_date" [owlDateTimeTrigger]="dt1"  placeholder="Start Date" >
+         <owl-date-time #dt1  [firstDayOfWeek]="1" [pickerType]="'calendar'" [pickerMode]="'dialog'"></owl-date-time>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>End Date</label>
+         <input    [owlDateTime]="dt2" class="form-control" [owlDateTimeTrigger]="dt2" formControlName="end_date"  placeholder="End Date" >
+         <owl-date-time #dt2  [firstDayOfWeek]="1" [pickerType]="'calendar'" [pickerMode]="'dialog'" ></owl-date-time>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>Services/Classes</label>
+         <ng-select [items]="services" formControlName="customerservice_id" placeholder="All" bindLabel="name"  bindValue="id" [multiple]="false">
+         </ng-select>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-12">
+         <label>Staff</label>
+         <ng-select [items]="staffs" formControlName="staff_id" placeholder="All" bindLabel="name"  bindValue="id" [multiple]="false">
+         </ng-select>
+      </div>
+      <div class="col-lg-2 col-md-2 p-0 col-sm-4 col-6">
+         <button class="btn btn-bookAppoin" type="submit">Generate Report</button>
+      </div>
+      <div class="col-lg-1 col-md-2 col-sm-4 col-6">
+         <button class="btn btn-bookAppoin" type="button" (click)="exportExcel();">Export</button>
+      </div>
+   </div>
+   </form>
+   <div class="table-responsive" style="overflow-x:auto;">
+   <table class="table table-bordered table-hover basic-report-table" >
+      <thead>
+         <tr>
+            <th scope="col">Appt. Date</th>
+            <th scope="col">Appt. Time</th>
+            <th scope="col">Service/Class</th>
+            <th scope="col">Resource</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col">Booking ID</th> -->
+            <th scope="col">Last Action</th>
+            <th scope="col">Last Action BY</th>
+            <th scope="col">Last Action Time</th>
+         </tr>
+      </thead>
+      <tbody *ngIf="meetings?.length != 0">
+         <tr  *ngFor="let item of meetings | paginate: { itemsPerPage: itemsPerPage, currentPage: p,totalItems:rowsTotal }">
+            <td >{{item.start_time | date:'MMM d, y'}}</td>
+            <td>{{item.start_time | date:'h:mm'}} - {{item.end_time | date:'h:mm a'}}</td>
+            <td>{{item.service!=null?item.service.name:'N/A'}}</td>
+            <td>{{item.staff.name}}</td>
+            <td>{{item.customer!=null?item.customer.name:'N/A'}}</td>
+            <td>{{item.customer!=null?item.customer.mobile:'N/A'}}</td>
+            <td>{{item.current_status == 'C' ? 'Complete' : 'Incomplete'}}</td>
+            <!-- <td>{{item.code}}</td> -->
+            <td>{{item.last_action}}</td>
+            <td>{{item.last_action_by}}</td>
+            <td>
+               <ng-container *ngIf="item.updated_at!=null;else no_update_time">
+                  {{item.updated_at | date: 'dd-MM-yy h:mm a'}}
+
+               </ng-container>
+               <ng-template #no_update_time>
+                  N/A
+               </ng-template>
+            </td>
+
+         </tr>
+      </tbody>
+      <tbody *ngIf="meetings?.length == 0">
+         <tr >
+            <td colspan="8" style=" text-align: center">No Appointments Found </td>
+         </tr>
+      </tbody>
+   </table>
+   <pagination-controls (pageChange)="getPage(p = $event)" [maxSize]="10"></pagination-controls>
+
+  </div>
+</div>
+
+

@@ -1,0 +1,44 @@
+.cusetomet-name img
+{
+  width: 1.8rem;
+  margin-right: 0.8rem;
+}
+.cusetomet-name
+{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-ashton-blue);
+}
+.btn-bookAppoin
+{
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0 0 auto;
+  display: block;
+  transition: all .5s ease-in-out;
+}
+.btn-bookAppoin:focus,
+.btn-bookAppoin:hover
+{
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+  color: var(--color-white);
+}
+.btn-new-customer
+{
+  background: var(--color-crystal-bell);
+  color: var(--color-midnight-express);
+}
+hr
+{
+  background-color: var(--color-unicorn-silver);
+  opacity: 1;
+  margin: 2.5rem 0;
+}
+ 

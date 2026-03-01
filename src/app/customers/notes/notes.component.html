@@ -1,0 +1,25 @@
+ <div class="cus-header">
+    <button class="btn btn-lg" *ngIf="selected_customer.notes==null; else Editor" (click)="openEditor();"><img src="assets/images/plus.png" alt="" class="img-fluid"> Create a new note..</button>
+     <ng-template #Editor>
+
+      <form method="post" [formGroup]="noteForm" (ngSubmit)="onSubmit()" *ngIf="noteForm">
+
+    <div class="form-group mb-2">
+
+     <quill-editor [styles]="{height: '180px'}" formControlName="notes" placeholder="Notes"></quill-editor>
+
+    </div>
+     <div class=" col-12 pr-1">
+     <button class="btn add-new-customer" type="submit" *ngIf="selected_customer.notes==''">Submit</button>
+     <button class="btn add-new-customer" type="submit" *ngIf="selected_customer.notes!=''">Edit note</button>
+
+     <button class="btn btn-cancel" *ngIf="selected_customer.notes==''" (click)="selected_customer.notes=null">Cancel</button>
+     </div>
+      </form>
+    </ng-template>
+
+
+
+
+
+  </div>

@@ -1,0 +1,112 @@
+
+.cus-header
+{
+  border-bottom: 1px solid var(--color-orochimaru);
+  padding: 1rem 0;
+}
+.cus-header .btn-lg
+{
+  width: fit-content;
+  padding: 0.6rem;
+  border: 1px solid var(--color-smoke-screen);
+  border-radius: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 0;
+  margin-right: 0.5rem;
+  text-align: center;
+}
+.cus-header .btn-lg img
+{
+  width: 0.8rem;
+  margin-right: 0.2rem;
+}
+
+.cus-header span
+{
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-shadow-mountain);
+}
+
+
+
+table,tr,td
+{
+  border: none !important;
+  font-size: 0.9rem;
+  color: var(--color-midnight-express);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.table
+{
+  vertical-align: middle;
+  border-collapse:separate;
+  border-spacing: 0 1em;
+}
+
+tr
+{
+  background: var(--color-cascading-white);
+}
+td:first-child {
+  border-left-style: solid;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  padding-left: 0.6rem;
+}
+td:last-child {
+  border-right-style: solid;
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  padding-right: 0.6rem;
+}
+td span
+{
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-frost-grey);
+}
+td img
+{
+  width: 1.2rem;
+  margin-right: 0.7rem;
+}
+.booking-date
+{
+  width: 80px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-waterline-blue);
+}
+
+.add-new-customer:focus,
+.btn-cancel:focus
+{
+  outline: none;
+  box-shadow: none;
+}
+.add-new-customer
+{
+  padding: 0.5rem 1rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.3rem;
+  transition: all .5s ease-in-out;
+}
+.btn-cancel
+{
+  padding: 0.5rem 1rem;
+  background: var(--color-chefs-hat);
+  color: var(--color-midnight-express);
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  transition: all .5s ease-in-out;
+  margin-left: 0.5rem;
+  border: none;
+}

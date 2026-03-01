@@ -1,0 +1,322 @@
+<div class="customer-com">
+  <!-- //*ngIf="userDetails.user_type=='admin'" -->
+  <!-- Admin Restriction Remove for merge,export,import, -->
+  <div class="customer-sidebar">
+
+    <div class="mb-d-flex customer-sidebar-buttons">
+      <input type="text" placeholder="Search" class="form-control" #movieSearchInput [(ngModel)]="searchFilter">
+
+      <button class="btn btn-bookAppoin btn-new-customer" (click)="mergeCustomer();"
+        *ngIf="userDetails.user_type=='admin'">Merge</button>
+      <button class="btn btn-bookAppoin btn-new-customer" (click)="exportExcel();"
+        *ngIf="userDetails.user_type=='admin'">Export</button>
+      <angular-file-uploader [config]="afuConfig" (fileSelected)="importExcel($event)"
+        *ngIf="userDetails.user_type=='admin'"></angular-file-uploader>
+      <button class="btn-bookAppoin" style="background:blue;" type="button" placement="right" [autoClose]="false"
+        #popover="ngbPopover" [ngbPopover]="NCustompopContent" [popoverTitle]="NCustompopTitle"
+        popoverClass="customer-popup">+ New
+        Customer</button>
+      <ng-template #NCustompopContent>
+        <form method="post" [formGroup]="basicForm" *ngIf="basicForm">
+
+
+          <input type="text" placeholder="Customer Name" class="form-control" formControlName="name">
+
+
+          <input type="text" placeholder="Primary Contact Name" class="form-control"
+            formControlName="primary_contact_name"
+            [ngClass]="{'parsley-error':basicForm.get('primary_contact_name').invalid && IsbasicSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="basicForm.get('primary_contact_name').invalid && IsbasicSubmitted">
+            <li class="parsley-required">Please Primary Contact Name</li>
+          </ul>
+
+          <input type="text" class="form-control" placeholder="Primary Contact Mobile" appPhoneFormat
+            formControlName="mobile" [ngClass]="{'parsley-error':basicForm.get('mobile').invalid && IsbasicSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="basicForm.get('mobile').invalid && IsbasicSubmitted">
+
+            <li class="parsley-required">Please Enter Mobile</li>
+
+          </ul>
+          <input type="text" class="form-control" placeholder="Address" formControlName="address">
+
+          <input type="text" class="form-control" placeholder="Notes" formControlName="notes">
+          <quill-editor [styles]="{height: '90px'}" formControlName="notes" placeholder="Notes"></quill-editor>
+
+          <input type="url" class="form-control" formControlName="customer_link" placeholder="Link">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="basicForm.get('customer_link').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter a valid link</li>
+
+          </ul>
+
+        </form>
+
+        <button class="btn add-new-customer" (click)="basicSubmit(popover)">Add Customer</button>
+        <button class="btn btn-cancel" (click)="popover.close()">Cancel</button>
+      </ng-template>
+      <ng-template #NCustompopTitle>Add New Customer</ng-template>
+    </div>
+    <div class="c-list">
+      <ng-scrollbar>
+        <ul>
+          <li
+            *ngFor="let customer of customers | paginate: { itemsPerPage: itemsPerPage, currentPage: p,totalItems:rowsTotal }"
+            (click)="customerDetail(customer);" [ngClass]="{'active':customer.id==this.selected_customer}">
+            <input type="checkbox" class="form-check" (click)="assignValue(customer,$event);">
+            <img src="assets/images/default-user.png" alt=""> {{customer.name}}
+          </li>
+        </ul>
+
+      </ng-scrollbar>
+
+      <pagination-controls (pageChange)="getPage(p = $event)" [maxSize]="3"></pagination-controls>
+
+    </div>
+
+
+  </div>
+
+  <div class="customer-main">
+
+    <!-- details -->
+    <div class="customer-details">
+      <form method="post" [formGroup]="customerForm" (ngSubmit)="onSubmit()" *ngIf="customerForm">
+        <div class="cusetomet-name mb-2">
+          <img src="assets/images/default-user.png" alt="#"> {{customerForm.value.name}}
+        </div>
+
+        <div class="form-group mb-2">
+          <label>Customer Name</label>
+
+          <input type="text" class="form-control" placeholder="Customer Name" formControlName="name">
+
+
+
+        </div>
+        <div class="form-group mb-2">
+          <label>Primary Contact Name</label>
+
+          <input type="text" class="form-control" placeholder="Primary Contact Name"
+            formControlName="primary_contact_name"
+            [ngClass]="{'parsley-error':customerForm.get('primary_contact_name').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="customerForm.get('primary_contact_name').invalid && IsSubmitted">
+            <li class="parsley-required">Please Enter Primary Contact Name</li>
+          </ul>
+
+        </div>
+
+        <div class="form-group mb-2">
+
+          <label>Primary Contact Mobile</label>
+
+          <input type="text" class="form-control" placeholder="Primary Contact Mobile" appPhoneFormat
+            formControlName="mobile" [ngClass]="{'parsley-error':customerForm.get('mobile').invalid && IsSubmitted}">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="customerForm.get('mobile').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Primary Contact Mobile</li>
+
+          </ul>
+        </div>
+
+        <div class="form-group mb-2">
+
+          <label>Alternate Contact Name</label>
+
+          <input type="text" class="form-control" placeholder="Alternate Contact Name" formControlName="alternate_name">
+
+        </div>
+
+        <div class="form-group mb-2">
+
+          <label>Alternate Contact Mobile</label>
+
+          <input type="text" class="form-control" formControlName="alternate_mobile" appPhoneFormat
+            placeholder="Alternate Contact Mobile">
+
+        </div>
+
+        <div class="form-group mb-2">
+
+          <label>Notes</label>
+          <quill-editor [styles]="{height: '100px'}" formControlName="notes" placeholder="Notes"></quill-editor>
+
+
+        </div>
+        <div class="form-group mb-2">
+
+          <label>Link</label>
+
+          <input type="url" class="form-control" formControlName="customer_link" placeholder="Link">
+
+          <ul class="parsley-errors-list filled" aria-hidden="false"
+            *ngIf="customerForm.get('customer_link').invalid && IsSubmitted">
+
+            <li class="parsley-required">Please Enter a valid link</li>
+
+          </ul>
+          <!-- <label *ngIf="customerForm?.value?.customer_link!=''">Link: <a target="_blank" href="{{customerForm?.value?.customer_link}}">{{customerForm?.value?.customer_link}}</a></label> -->
+        </div>
+        <div class="form-group mb-2">
+
+          <label>Address</label>
+
+          <input type="text" class="form-control" placeholder="Address" formControlName="address">
+
+
+
+          <div class="d-flex flex-wrap">
+
+
+            <div class="col-sm-4 col-12 pr-1">
+
+              <button class="btn add-new-customer" type="submit">Submit</button>
+
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+    <!-- details -->
+
+    <!-- details -->
+
+    <div class="customer-det-tabs">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="customerTbaactive" class="nav-tabs">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Appointments</a>
+          <ng-template ngbNavContent>
+            <div *ngIf="customerForm.value.id!=null">
+              <app-appointments></app-appointments>
+            </div>
+
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>Notes</a>
+          <ng-template ngbNavContent>
+            <div *ngIf="customerForm.value.id!=null">
+              <app-notes></app-notes>
+            </div>
+
+          </ng-template>
+        </li>
+        <!-- <li [ngbNavItem]="3">
+          <a ngbNavLink>Stats</a>
+          <ng-template ngbNavContent>
+            <app-stats></app-stats>
+          </ng-template>
+        </li> -->
+      </ul>
+
+      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+      <div class="delete-sec" *ngIf="customerForm.value.id!=null && userDetails.user_type=='admin'">
+
+        <button type="button" class="btn btn-delete" placement="bottom" #NDeCustomet="ngbPopover"
+          [ngbPopover]="DeletepopContent" [popoverTitle]="DeletepopTitle">
+          <img src="assets/images/delete.png" alt="#" class="img-fluid">
+        </button>
+
+        <ng-template #DeletepopContent>
+          <button class="btn btn-delete-text" (click)="deleteData();">Delete</button>
+          <button class="btn btn-cancel" (click)="NDeCustomet.close()">Cancel</button>
+        </ng-template>
+        <ng-template #DeletepopTitle>Delete Customer?</ng-template>
+      </div>
+
+    </div>
+    <!-- details -->
+
+  </div>
+
+</div>
+<ng-template #MergeModal let-modal>
+  <div class="modal-header book-apoin-header">
+    <h4 class="modal-title" id="modal-basic-title">Merge {{deletedClients.length}} Customers</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body book-apoin-body">
+    <form method="post" [formGroup]="mergeForm" (ngSubmit)="mergeData()" *ngIf="mergeForm">
+      <div class="row">
+        <div class="col-sm-6 col-12 p-4  pt-0" *ngIf="names.length>0">
+          <div class="form-group mb-3">
+            <label><img src="assets/images/default-user-2.png"></label>
+            <ng-select formControlName="name">
+              <ng-option *ngFor="let user of names" [value]="user">{{user}}</ng-option>
+            </ng-select>
+          </div>
+
+          <div class="form-group mb-3" *ngIf="primary_contacts.length>0">
+            <label>Primary Contact Name</label>
+            <ng-select formControlName="primary_contact_name">
+              <ng-option *ngFor="let primary_contact of primary_contacts"
+                [value]="primary_contact">{{primary_contact}}</ng-option>
+            </ng-select>
+            <ul class="parsley-errors-list filled" aria-hidden="false"
+              *ngIf="mergeForm.get('primary_contact_name').invalid && MergeSubmitted">
+
+              <li class="parsley-required">Please Select Primary Contact Name</li>
+            </ul>
+          </div>
+          <div class="form-group mb-3" *ngIf="mobiles.length>0">
+            <label>Primary Mobile No</label>
+            <ng-select formControlName="mobile">
+              <ng-option *ngFor="let primary_mobile of mobiles" [value]="primary_mobile">{{primary_mobile}}</ng-option>
+            </ng-select>
+
+          </div>
+          <div class="form-group mb-3" *ngIf="alternate_names.length>0">
+            <label>Alternate Contact Name</label>
+            <ng-select formControlName="alternate_name">
+              <ng-option *ngFor="let val of alternate_names" [value]="val">{{val}}</ng-option>
+            </ng-select>
+
+          </div>
+          <div class="form-group mb-3" *ngIf="alternate_mobiles.length>0">
+            <label>Alternate Mobile No</label>
+            <ng-select formControlName="alternate_mobile">
+              <ng-option *ngFor="let val of alternate_mobiles" [value]="val">{{val}}</ng-option>
+            </ng-select>
+
+          </div>
+          <div class="form-group mb-3" *ngIf="addresses.length>0">
+            <label>Adrress</label>
+            <ng-select formControlName="address">
+              <ng-option *ngFor="let val of addresses" [value]="val">{{val}}</ng-option>
+            </ng-select>
+
+          </div>
+
+          <div class="form-group">
+
+            <input type="submit" class="btn btn-bookAppoin w-100" value="Merge {{deletedClients.length}} Customers">
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</ng-template>
+
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+

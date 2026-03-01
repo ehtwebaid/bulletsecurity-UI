@@ -1,0 +1,178 @@
+.calender-top {
+  padding: 1rem 0 0;
+  overflow: hidden;
+}
+
+.calender-top ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+}
+
+.calender-top ul li {
+  flex: 0 0 50%;
+  max-width: 50%;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-namara-grey);
+}
+
+.calender-top ul li:last-child:not(.onlyStaff) {
+  flex: 0 0 100px;
+  max-width: 100px;
+  padding-left: 5px;
+}
+
+.calender-top ul li img {
+  width: 1.5rem;
+}
+
+.form-control {
+  border: none;
+  padding: 0;
+  height: inherit;
+  font-size: 0.8rem;
+  color: var(--color-namara-grey);
+  margin: 0;
+  font-weight: 600;
+  line-height: 2;
+  background: url(../../assets/images/down-arrow.png);
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.calender-right-side {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.calender-right-side a:not(.calender-right-side ul a) {
+  width: 0.9rem;
+  display: block;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.calender-right-side a img {
+  width: 100%;
+}
+
+.today {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-namara-grey);
+  text-align: right;
+  display: block;
+  padding-right: 1rem;
+  cursor: pointer;
+}
+
+.calen-next-prev-box {
+  text-align: center;
+  cursor: pointer;
+}
+
+.calen-next-prev-box span {
+  font-size: 0.8rem;
+}
+
+.calen-next-prev-box span img {
+  width: 10px;
+}
+
+.btn-prev {
+  padding-right: 1rem;
+}
+
+.btn-next {
+  padding-left: 1rem;
+}
+
+.btn-prev img,
+.btn-next img {
+  height: 10px;
+}
+
+.calender-select {
+  border: none;
+}
+
+.selected-user {
+  position: absolute;
+  left: 30%;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-black-emerald);
+  top: 4px;
+}
+
+.selected-user img {
+  width: 1.2rem;
+}
+
+.calender-right-side ul {
+  display: block;
+  padding: 10px 0;
+  background: #fff;
+  z-index: 999;
+  border-radius: 5px;
+}
+
+.calender-right-side ul li,
+.calender-right-side ul li:last-child {
+  flex: none;
+  max-width: 100%;
+  padding: 3px 8px;
+  transition: all .5s ease-in-out;
+}
+
+.calender-right-side ul li a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-black-emerald);
+  margin: 0;
+  display: block;
+}
+
+.calender-right-side ul li:hover {
+  background: var(--color-crystal-bell);
+}
+
+.calender-right-side ul li a img {
+  width: 13px;
+}
+
+.my-actions {
+  margin: 0 2em;
+}
+
+.order-1 {
+  order: 1;
+}
+
+.order-2 {
+  order: 2;
+}
+
+.order-3 {
+  order: 3;
+}
+
+.right-gap {
+  margin-right: auto;
+}
+
+.job_desc p {
+  margin-bottom: 0rem !important;
+}
+
+.popup-info-label {
+  width: 25%;
+}
+
+.customer_note {
+  background-color: yellow !important;
+}

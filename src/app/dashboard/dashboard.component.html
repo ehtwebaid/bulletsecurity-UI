@@ -1,0 +1,181 @@
+<div class="dashboard-items">
+  <ul>
+    <li *ngIf="week_start && week_end">This Week<span>{{week_start | date:'d MMM'}} - {{week_end | date:'d MMM'}}</span></li>
+    <li *ngIf="appointments">{{appointments.length}}<span>Appointments</span></li>
+    <li>&#8377;0.00<span>Confirmed Revenue</span></li>
+    <li>&#8377;0.00<span>Projected Revenue</span></li>
+    <li>&#8377;0.00<span>Total Estimated</span></li>
+  </ul>
+</div>
+
+
+<div class="row justify-content-center p-5 mt-2">
+
+  <div class="col-sm-7 col-12">
+
+    <div class="row justify-content-center align-items-center">
+      <div class="col-sm-6 col-12"><h3 class="primary-header">THIS WEEK'S SCHEDULE</h3></div>
+      <div class="col-sm-6 col-12 text-right"><button class="btn btn-bookAppoin" (click)="open(content)">+ Book Appointment</button></div>
+
+      <div class="col-12 mt-4">
+
+        <table class="table" >
+          <tbody>
+
+            <tr *ngFor="let appointment of appointments;let i = index">
+              <td class="booking-date">{{appointment.start_time | date:'d MMM' }}</td>
+              <td>
+                <div class="d-flex flex-wrap align-items-center">
+                  <div class="col-sm-2"><img src="assets/images/right.png" alt="#" class="img-fluid"></div>
+                  <div class="col-sm-10">{{appointment.start_time | date:'h:mm a' }}<span>{{appointment.meeting_length}} min</span></div>
+                </div>
+              </td>
+              <td>
+                {{appointment.customer.name}} <span>{{appointment.meeting_length}} Mins Meeting w/ {{appointment.staff.name}}</span>
+              </td>
+              <td>
+                {{appointment.current_status | titlecase}}
+              </td>
+            </tr>
+            <tr *ngIf="appointments?.length == 0">
+                <td colspan="4">No Schedules Found</td>
+            </tr>
+
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-sm-4 col-12">
+
+    <div class="week-activity">
+
+      <h3>THIS WEEK'S ACTIVITY</h3>
+
+      <ul>
+
+        <li>
+          <img src="assets/images/calender-icon.png" alt="">
+          <div class="week-activity-content">
+            Updated: Service 30 Mins Meeting's details have been updated.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/user-icon.png" alt="">
+          <div class="week-activity-content">
+            Customer I.ssd was added
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/create-icon.png" alt="">
+          <div class="week-activity-content">
+            Created: Staff SSD was created.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/calender-icon.png" alt="">
+          <div class="week-activity-content">
+            Updated: Service 30 Mins Meeting's details have been updated.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/user-icon.png" alt="">
+          <div class="week-activity-content">
+            Customer I.ssd was added
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/create-icon.png" alt="">
+          <div class="week-activity-content">
+            Created: Staff SSD was created.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/calender-icon.png" alt="">
+          <div class="week-activity-content">
+            Updated: Service 30 Mins Meeting's details have been updated.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/user-icon.png" alt="">
+          <div class="week-activity-content">
+            Customer I.ssd was added
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/create-icon.png" alt="">
+          <div class="week-activity-content">
+            Created: Staff SSD was created.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/calender-icon.png" alt="">
+          <div class="week-activity-content">
+            Updated: Service 30 Mins Meeting's details have been updated.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/user-icon.png" alt="">
+          <div class="week-activity-content">
+            Customer I.ssd was added
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+        <li>
+          <img src="assets/images/create-icon.png" alt="">
+          <div class="week-activity-content">
+            Created: Staff SSD was created.
+            <span>3 hours 3 mins ago</span>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header book-apoin-header">
+    <h4 class="modal-title" id="modal-basic-title">Appointment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body book-apoin-body">
+
+  <app-commonappointment></app-commonappointment>
+
+
+  </div>
+</ng-template>
+

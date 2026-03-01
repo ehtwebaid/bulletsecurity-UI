@@ -1,0 +1,177 @@
+<div class="account-settings">
+    <div class="account-settings-sidebar" style="display:none;">
+    <h3>Categories</h3>
+    <button class="btn btn-lg" [autoClose]="'outside'" #NCustomet="ngbPopover" [ngbPopover]="NCustompopContent" [popoverTitle]="NCustompopTitle"><img src="assets/images/plus.png" alt="" class="img-fluid"></button>
+    <ng-template #NCustompopContent>
+      <form>
+        <input type="text" placeholder="Name" class="form-control">
+      </form>
+
+      <button class="btn add-new-customer">Add Category</button>
+      <button class="btn btn-cancel" (click)="NCustomet.close()">Cancel</button>
+    </ng-template>
+    <ng-template #NCustompopTitle>Add New Category</ng-template>
+
+    <ul class="staff-list">
+
+      <li class="acive"><span><img src="assets/images/default-user.png" alt=""> All Services (3)</span> <button><img src="assets/images/edit.png" alt="#" class="img-fluid"></button></li>
+
+      <li><span><img src="assets/images/default-user.png" alt=""> ssd(0)</span> <button><img src="assets/images/edit.png" alt="#" class="img-fluid"></button></li>
+
+      <li><span><img src="assets/images/default-user.png" alt=""> sd(0)</span> <button><img src="assets/images/edit.png" alt="#" class="img-fluid"></button></li>
+
+    </ul>
+
+  </div>
+
+  <div class="account-settings-content">
+
+    <!-- services-details-box start -->
+    <ng-container *ngIf="!serviceAdd">
+      <div class="d-flex flex-wrap">
+        <div class="col-sm-6 col-12"><h3 class="sub-title">All Services</h3></div>
+        <div class="col-sm-6 col-12 text-right"><button class="btn add-new-customer" (click)="addService()">+ Add Service</button></div>
+      </div>
+
+      <div class="all-services-box">
+        <ul>
+
+          <li *ngFor="let item of services;index as i">
+              <div class="mins-box color-ashton-blue" style="background-color:{{item.color}} !important;">{{item.minutes}}</div>
+
+            <div class="service-disc-box">
+
+              <div class="service-disc-box-cont">
+                <h4>{{item.name}}</h4>
+                <p>{{item.description!=null?item.description:'No Description'}}</p>
+              </div>
+
+            </div>
+
+            <div class="service-details">
+              <span>{{item.minutes}} mins</span>
+              <span class="comp-edit-btn">
+
+                  <button  class="btn" (click)="editServive(item)"><img  src="assets/images/edit.png" alt="" class="img-fluid"></button>
+
+              </span>
+              <span>
+                  <button type="button" class="btn btn-delete" placement="bottom" (click)="deleteServive(item.id,i);">
+                      <img src="assets/images/delete.png" alt="#" class="img-fluid">
+                  </button>
+
+               </span>
+            </div>
+          </li>
+
+
+
+        </ul>
+      </div>
+    </ng-container>
+    <!-- services-details-box end -->
+
+    <!-- add service start -->
+
+    <ng-container *ngIf="serviceAdd">
+    <div class="add-services-box">
+
+      <div class="add-services-btns">
+        <button class="btn btn-cancel" (click)="addServiceClose()">Cancel</button>
+      </div>
+
+      <div class="all-services-box p-3">
+
+        <div class="d-flex flex-wrap justify-content-between">
+
+          <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+
+              <form method="post"  [formGroup]="serviceForm" *ngIf="serviceForm" (ngSubmit)="onSubmit()">
+
+<!--              <div class="cusetomet-name mb-2"><img src="assets/images/default-user-2.png" alt="#"> SSD </div>-->
+               <div class="form-group mb-2">
+                <label>Name</label>
+                <input type="text" class="form-control"  formControlName="name" [ngClass]="{'parsley-error':serviceForm.get('name').invalid && IsSubmitted}">
+
+                <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="serviceForm.get('name').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Enter Name</li>
+
+               </ul>
+              </div>
+              <div class="form-group mb-2">
+                <label>Description</label>
+                <textarea class="form-control" style=" height:112px;" formControlName="description" ></textarea>
+              </div>
+
+              <div class="form-group mb-2">
+                <label>Color</label>
+                <input type="color" class="form-control" formControlName="color" [ngClass]="{'parsley-error':serviceForm.get('color').invalid && IsSubmitted}">
+              </div>
+
+                <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="serviceForm.get('color').invalid && IsSubmitted">
+                <li class="parsley-required">Please Choose Color</li>
+               </ul>
+               <div class="form-group mb-2">
+                <label>Border Color</label>
+                <input type="color" class="form-control" formControlName="border_color" [ngClass]="{'parsley-error':serviceForm.get('border_color').invalid && IsSubmitted}">
+              </div>
+
+                <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="serviceForm.get('border_color').invalid && IsSubmitted">
+                <li class="parsley-required">Please Choose Border Color</li>
+               </ul>
+
+              <div class="form-group mb-2">
+                <label>Length in Minutes</label>
+                <input type="text" class="form-control" appNumericinput formControlName="minutes" [ngClass]="{'parsley-error':serviceForm.get('minutes').invalid && IsSubmitted}">
+
+                <ul class="parsley-errors-list filled" aria-hidden="false"*ngIf="serviceForm.get('minutes').invalid && IsSubmitted">
+
+                <li class="parsley-required">Please Enter Length in Minutes</li>
+
+               </ul>
+              </div>
+              <button class="btn add-new-customer" type="submit">Submit</button>
+            </form>
+
+          </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12" style="display:none;">
+            <div class="all-staff">
+            <p>Staff who provide the service: * All Staff</p>
+            <div class="form-check-box">
+              <input type="checkbox" value="" id="defaultCheck1">
+              <label for="defaultCheck1">
+                All Staff
+              </label>
+            </div>
+            <div class="form-check-box">
+              <input type="checkbox" value="" id="defaultCheck2" checked>
+              <label for="defaultCheck2">
+                Issd
+              </label>
+            </div>
+            <div class="form-check-box">
+              <input type="checkbox" value="" id="defaultCheck3">
+              <label for="defaultCheck3">
+                SSD
+              </label>
+            </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    </ng-container>
+    <!-- add service end -->
+
+
+
+
+  </div>
+
+</div>
+

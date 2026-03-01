@@ -1,0 +1,77 @@
+.staff-services-name
+{
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ashton-blue);
+}
+.staff-services-name  img {
+  width: 1.8rem;
+  margin-right: 0.8rem;
+}
+.staff-services-list
+{
+  padding-left: 3rem;
+  margin-top: 10px;
+}
+
+td
+{
+  border:none;
+  padding: 0.1rem 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-midnight-express);
+  vertical-align: middle;
+}
+.wh-time
+{
+  width: 80px;
+  padding: 0 0.5rem;
+}
+.wh-time .form-control
+{
+  height: 30px;
+  font-size: 1rem;
+  border: none;
+  background: #f7f8f8;
+}
+.day-off
+{
+  color: #959595;
+  padding: 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.staff-services-list hr
+{
+  margin-left: -4rem;
+  background-color: #e2e2e2;
+}
+.edit-wh
+{
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4977bb;
+}
+.btn-bookAppoin {
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  margin: -2rem 0 0 auto;
+  display: block;
+  transition: all .5s ease-in-out;
+}
+.btn-bookAppoin:focus, .btn-bookAppoin:hover {
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+
+/* input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+  display:none;
+} */

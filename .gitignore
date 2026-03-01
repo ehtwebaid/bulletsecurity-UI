@@ -1,0 +1,15 @@
+# Dependency directory
+node_modules/
+
+# Angular build output
+dist/
+
+# Angular CLI v17+ cache
+.angular/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*    # Also ignore .env.local, .env.production, etc.

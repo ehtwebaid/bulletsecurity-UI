@@ -1,0 +1,146 @@
+ .comp-details
+ {
+  margin: 0.5rem 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.4rem;
+ }
+ .comp-top
+ {
+   display: flex;
+   flex-wrap: wrap;
+   background: var(--color-lynx-white);
+   border-bottom: 1px solid #e3e3e3;
+   padding: 1rem;
+   align-items: center;
+ }
+.comp-logo
+{
+  display: block;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  margin: 0 ;
+}
+.comp-logo img
+{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.logo-upload
+{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width:100%;
+  height: 1.4rem;
+  background: rgba(0,0,0,.8);
+  transform: translateY(-50%);
+  line-height: 1;
+  text-align: center;
+  opacity: 0;
+  display: none;
+  transition: all .5s ease-in-out;
+}
+.logo-upload input
+{
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.logo-upload img
+{
+  width: 0.8rem;
+  height: inherit;
+  object-fit: contain;
+  line-height: 1.5rem;
+  filter: invert(100%);
+}
+.comp-logo:hover .logo-upload
+{
+  opacity: 1;
+  display: block;
+}
+.comp-name
+{
+  flex: 0 0 calc(100% - 10rem);
+  max-width: calc(100% - 10rem);
+  padding: 0 1rem;
+}
+.comp-edit-btn .btn
+{
+  width: 2rem;
+  height: 2rem;
+  padding:0;
+  border: 1px solid var(--color-midnight-express);
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  line-height: 0;
+}
+.comp-edit-btn .btn img
+{
+  width: 15px;
+}
+.comp-name h3
+{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-ashton-blue);
+}
+.comp-name p
+{
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-midnight-express);
+  margin: 0;
+}
+.company-body
+{
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.company-body p
+{
+  width: 50%;
+  font-size: 0.8rem;
+  color: #808081;
+  font-weight: 600;
+}
+.company-body p strong,
+.company-edit-form label
+{
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-midnight-express);
+}
+.company-edit-form
+{
+  padding: 1rem;
+}
+.add-new-customer
+{
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--color-midnight-express);
+  color: var(--color-white);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all .5s ease-in-out;
+  margin: 1rem 0 0;
+}
+.add-new-customer:focus,
+.add-new-customer:hover
+{
+  box-shadow: none;
+  border: none;
+  background: var(--color-ashton-blue);
+}
+
