@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,Event } from '@angular/router';
 import { CommonService } from 'src/app/service/common.service';
-import Pusher from "src/assets/js/pusher.min";
-import { PUSHER_KEY, PUSHER_CLUSTER } from "src/app/global-constants";
+import { ReverbWsService } from '../service/reverb-ws.service';
 
 @Component({
   selector: 'app-header',
@@ -11,31 +10,26 @@ import { PUSHER_KEY, PUSHER_CLUSTER } from "src/app/global-constants";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router,private commonservice: CommonService) { }
+  constructor(private router: Router,private commonservice: CommonService,private reverb: ReverbWsService) { }
 
   ngOnInit(): void {
     this.router.events.subscribe((event: Event) => {
     this.commonservice.clearToast();
 
   });
-  let pusher_key = PUSHER_KEY;
-  let pusher_cluster = PUSHER_CLUSTER;
   let self_current = this;
 
-  var pusher = new Pusher(pusher_key, {
-    cluster: pusher_cluster,
-  });
-  var channel = pusher.subscribe("my-channel");
+
   let userDetails=JSON.parse(window.localStorage.getItem('userDetails'));
-  channel.bind("my-event", function (data) {
-    let resp = JSON.parse(data);
-
-    if(+resp?.data?.user_id==userDetails.id && resp?.data?.type=='force_log_out')
+  this.reverb.listenPublic('forceLogout', '.forceLogoutData', (resp: any) => {
+  if(+resp?.data?.user_id==userDetails.id)
     {
+      this.logOut();
 
-      self_current.logOut();
     }
-  });
+
+});
+
   }
   logOut():void
   {
