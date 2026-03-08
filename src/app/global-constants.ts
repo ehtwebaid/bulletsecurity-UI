@@ -1,6 +1,6 @@
-export const apiURL: string = "https://backend2.bulletsecurity.net/api/";
-export const siteUrl: string = "https://backend2.bulletsecurity.net/";
-export const webURL: string = "https://backend2.bulletsecurity.net/";
+export const apiURL: string = "https://backend3.bulletsecurity.net/api/";
+export const siteUrl: string = "https://backend3.bulletsecurity.net/";
+export const webURL: string = "https://backend3.bulletsecurity.net";
 export const reverbURL: string = "ws://127.0.0.1:9090/app/5mxcjujkte9st8o1af3q";
 
 export const PUSHER_KEY: string = "ee1ca715631bfb7703eb";
