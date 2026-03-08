@@ -172,7 +172,10 @@ export class CalenderComponent implements OnInit {
       !sessionStorage.getItem('staff_id') ||
       sessionStorage.getItem('staff_id') == resp?.data?.staff_id
     ) {
+      setTimeout(()=>{
       this.refreshCalender(resp);
+      },1500)
+
     }
   }
 });
