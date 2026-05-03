@@ -18,11 +18,12 @@ public echo;
   private initializeEcho() {
 
     this.echo = new Echo({
-      broadcaster: 'reverb',
-      key: '5mxcjujkte9st8o1af3q', // your REVERB_APP_KEY
-      wsHost: 'backend3.bulletsecurity.net',
-      forceTLS: false,
-      enabledTransports: ['ws'],
+     broadcaster: 'reverb',
+     key: '5mxcjujkte9st8o1af3q',
+     wsHost: 'backend.risereno.ca',
+     wssPort: 443,
+    forceTLS: true,
+    enabledTransports: ['ws', 'wss'],
 
     });
 
