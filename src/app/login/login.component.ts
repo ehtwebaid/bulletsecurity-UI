@@ -56,9 +56,13 @@ export class LoginComponent implements OnInit {
         }
         else {
           let errors = res.error;
-          for (let error of errors) {
-            this.commonservice.showError(error, "Login")
+          if(errors)
+          {
+            for (let error of errors) {
+              this.commonservice.showError(error, "Login")
+            }
           }
+
           this.commonservice.showWarning(res.message, "Login")
         }
       },
