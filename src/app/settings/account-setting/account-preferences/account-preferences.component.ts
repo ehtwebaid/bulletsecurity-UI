@@ -31,7 +31,7 @@ export class AccountPreferencesComponent implements OnInit {
       default_color: ['', Validators.required],
       border_color: ['', Validators.required],
       completion_color: ['', Validators.required],
-      no_emp: ['',Validators.required],
+      no_emp: [''],
       calender_stats:['']
 
     });
@@ -51,10 +51,10 @@ export class AccountPreferencesComponent implements OnInit {
       res.data.end_hour=parseInt(res.data.end_hour);
       this.calnderForm.patchValue(res.data);
       this.maxStaff=res.data.totalStaff;
-      this.calnderForm.get('no_emp').setValidators([
-                Validators.max(res.data.totalStaff)
-            ]);
-      this.calnderForm.get('no_emp').updateValueAndValidity();
+      // this.calnderForm.get('no_emp').setValidators([
+      //           Validators.max(res.data.totalStaff)
+      //       ]);
+      // this.calnderForm.get('no_emp').updateValueAndValidity();
       }
 
       },
